@@ -1,0 +1,142 @@
+<div class="movie-detail-container">
+  <!-- Hero Section -->
+  <section class="movie-hero">
+    <div class="backdrop-image"></div>
+    <div class="gradient-overlay"></div>
+    
+    <div class="movie-info">
+      <div class="poster">
+        <img src="assets/images/movie-poster.jpg" alt="Movie Poster">
+      </div>
+      
+      <div class="details">
+        <h1>Inception</h1>
+        <div class="meta-info">
+          <span class="rating">
+            <i class="pi pi-star-fill"></i>
+            8.8
+          </span>
+          <span class="year">2010</span>
+          <span class="duration">2h 28m</span>
+          <span class="genre">Sci-Fi</span>
+        </div>
+        
+        <div class="actions">
+          <button class="btn btn-primary">
+            <i class="pi pi-play"></i> Watch Now
+          </button>
+          <button class="btn btn-secondary">
+            <i class="pi pi-heart"></i>
+          </button>
+          <button class="btn btn-secondary">
+            <i class="pi pi-share-alt"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content Tabs -->
+  <section class="content-tabs">
+    <div class="tab-buttons">
+      <button 
+        [class.active]="activeTab === 'overview'"
+        (click)="setActiveTab('overview')">
+        Overview
+      </button>
+      <button 
+        [class.active]="activeTab === 'cast'"
+        (click)="setActiveTab('cast')">
+        Cast & Crew
+      </button>
+      <button 
+        [class.active]="activeTab === 'reviews'"
+        (click)="setActiveTab('reviews')">
+        Reviews
+      </button>
+    </div>
+
+    <!-- Overview Tab -->
+    <div class="tab-content" *ngIf="activeTab === 'overview'">
+      <div class="overview">
+        <p [class.expanded]="showFullDescription">
+          Dom Cobb is a skilled thief, the absolute best in the dangerous art of extraction, 
+          stealing valuable secrets from deep within the subconscious during the dream state, 
+          when the mind is at its most vulnerable...
+        </p>
+        <button class="btn-text" (click)="toggleDescription()">
+          {{ showFullDescription ? 'Show Less' : 'Read More' }}
+        </button>
+
+        <div class="details-grid">
+          <div class="detail-item">
+            <h3>Director</h3>
+            <p>Christopher Nolan</p>
+          </div>
+          <div class="detail-item">
+            <h3>Writers</h3>
+            <p>Christopher Nolan</p>
+          </div>
+          <div class="detail-item">
+            <h3>Release Date</h3>
+            <p>July 16, 2010</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cast Tab -->
+    <div class="tab-content" *ngIf="activeTab === 'cast'">
+      <div class="cast-grid">
+        <div class="cast-card" *ngFor="let i of [1,2,3,4,5,6]">
+          <div class="cast-image"></div>
+          <div class="cast-info">
+            <h3>Leonardo DiCaprio</h3>
+            <p>Dom Cobb</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reviews Tab -->
+    <div class="tab-content" *ngIf="activeTab === 'reviews'">
+      <div class="reviews-container">
+        <div class="review-card" *ngFor="let i of [1,2,3]">
+          <div class="review-header">
+            <div class="reviewer-info">
+              <div class="avatar"></div>
+              <div class="name-date">
+                <h3>John Doe</h3>
+                <span>March 15, 2024</span>
+              </div>
+            </div>
+            <div class="rating">
+              <i class="pi pi-star-fill"></i>
+              4.5
+            </div>
+          </div>
+          <p class="review-content">
+            Amazing movie that keeps you on the edge of your seat...
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Similar Movies -->
+  <section class="similar-movies">
+    <h2>Similar Movies</h2>
+    <div class="movies-grid">
+      <div class="movie-card" *ngFor="let i of [1,2,3,4]">
+        <div class="movie-poster">
+          <div class="hover-info">
+            <h3>Movie Title</h3>
+            <button class="btn btn-small">
+              <i class="pi pi-play"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

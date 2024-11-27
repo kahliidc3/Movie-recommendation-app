@@ -1,0 +1,55 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Global styles */
+:root {
+  --primary: #FFD700;
+  --primary-light: #FFEB3B;
+  --dark: #121212;
+  --dark-light: #1E1E1E;
+  --text-primary: #FFFFFF;
+  --text-secondary: #B3B3B3;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--dark);
+  color: var(--text-primary);
+  font-family: 'Roboto', sans-serif;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.btn {
+  background: var(--primary);
+  color: var(--dark);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background: var(--primary-light);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+}
+
+.card {
+  background: var(--dark-light);
+  border-radius: 15px;
+  padding: 20px;
+  margin: 15px 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}

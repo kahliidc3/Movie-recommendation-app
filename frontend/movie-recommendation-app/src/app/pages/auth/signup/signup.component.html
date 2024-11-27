@@ -1,0 +1,141 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="auth-header">
+      <h1>Create Account</h1>
+      <p>Join our movie community today</p>
+    </div>
+
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="auth-form">
+      <!-- Username Field -->
+      <div class="form-group">
+        <label for="username">Username</label>
+        <div class="input-wrapper">
+          <i class="pi pi-user"></i>
+          <input 
+            type="text" 
+            id="username"
+            formControlName="username"
+            placeholder="Choose a username"
+            [class.error]="signupForm.get('username')?.invalid && signupForm.get('username')?.touched"
+          >
+        </div>
+        <span class="error-message" *ngIf="signupForm.get('username')?.invalid && signupForm.get('username')?.touched">
+          {{ getErrorMessage('username') }}
+        </span>
+      </div>
+
+      <!-- Email Field -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <div class="input-wrapper">
+          <i class="pi pi-envelope"></i>
+          <input 
+            type="email" 
+            id="email"
+            formControlName="email"
+            placeholder="Enter your email"
+            [class.error]="signupForm.get('email')?.invalid && signupForm.get('email')?.touched"
+          >
+        </div>
+        <span class="error-message" *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched">
+          {{ getErrorMessage('email') }}
+        </span>
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="input-wrapper">
+          <i class="pi pi-lock"></i>
+          <input 
+            [type]="showPassword ? 'text' : 'password'"
+            id="password"
+            formControlName="password"
+            placeholder="Create a password"
+            [class.error]="signupForm.get('password')?.invalid && signupForm.get('password')?.touched"
+          >
+          <button 
+            type="button"
+            class="toggle-password"
+            (click)="togglePasswordVisibility('password')">
+            <i [class]="showPassword ? 'pi pi-eye-slash' : 'pi pi-eye'"></i>
+          </button>
+        </div>
+        <span class="error-message" *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched">
+          {{ getErrorMessage('password') }}
+        </span>
+      </div>
+
+      <!-- Confirm Password Field -->
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <div class="input-wrapper">
+          <i class="pi pi-lock"></i>
+          <input 
+            [type]="showConfirmPassword ? 'text' : 'password'"
+            id="confirmPassword"
+            formControlName="confirmPassword"
+            placeholder="Confirm your password"
+            [class.error]="signupForm.get('confirmPassword')?.invalid && signupForm.get('confirmPassword')?.touched"
+          >
+          <button 
+            type="button"
+            class="toggle-password"
+            (click)="togglePasswordVisibility('confirmPassword')">
+            <i [class]="showConfirmPassword ? 'pi pi-eye-slash' : 'pi pi-eye'"></i>
+          </button>
+        </div>
+        <span class="error-message" *ngIf="signupForm.get('confirmPassword')?.touched && signupForm.hasError('mismatch')">
+          Passwords do not match
+        </span>
+      </div>
+
+      <!-- Terms and Conditions -->
+      <div class="form-group terms">
+        <label class="checkbox-label">
+          <input type="checkbox" formControlName="terms">
+          <span>I agree to the <a href="/terms" target="_blank">Terms & Conditions</a></span>
+        </label>
+        <span class="error-message" *ngIf="signupForm.get('terms')?.invalid && signupForm.get('terms')?.touched">
+          You must accept the terms and conditions
+        </span>
+      </div>
+
+      <!-- Submit Button -->
+      <button 
+        type="submit" 
+        class="btn btn-primary submit-btn"
+        [disabled]="isLoading">
+        <i class="pi pi-spinner pi-spin" *ngIf="isLoading"></i>
+        <span>{{ isLoading ? 'Creating Account...' : 'Create Account' }}</span>
+      </button>
+    </form>
+
+    <!-- Social Signup -->
+    <div class="social-login">
+      <div class="divider">
+        <span>or sign up with</span>
+      </div>
+      
+      <div class="social-buttons">
+        <button class="social-btn google" (click)="signupWithProvider('google')">
+          <i class="pi pi-google"></i>
+          <span>Google</span>
+        </button>
+        <button class="social-btn facebook" (click)="signupWithProvider('facebook')">
+          <i class="pi pi-facebook"></i>
+          <span>Facebook</span>
+        </button>
+        <button class="social-btn apple" (click)="signupWithProvider('apple')">
+          <i class="pi pi-apple"></i>
+          <span>Apple</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Login Link -->
+    <div class="auth-footer">
+      <p>Already have an account? <a routerLink="/login">Sign in</a></p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,186 @@
+<div class="profile-container">
+  <!-- Profile Header -->
+  <section class="profile-header">
+    <div class="profile-banner">
+      <div class="profile-info">
+        <div class="profile-avatar">
+          <img src="assets/images/avatar.jpg" alt="User Avatar">
+          <button class="edit-avatar">
+            <i class="pi pi-camera"></i>
+          </button>
+        </div>
+        <div class="profile-details">
+          <h1>John Doe</h1>
+          <p class="username">&#64;johndoe</p>
+          <p class="bio">Movie enthusiast | Sci-Fi lover | Always watching something new</p>
+        </div>
+      </div>
+      <div class="profile-stats">
+        <div class="stat-item">
+          <span class="stat-value">{{ userStats.moviesWatched }}</span>
+          <span class="stat-label">Movies Watched</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">{{ userStats.reviewsWritten }}</span>
+          <span class="stat-label">Reviews</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">{{ userStats.listsCreated }}</span>
+          <span class="stat-label">Lists</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Profile Content -->
+  <section class="profile-content">
+    <!-- Navigation Tabs -->
+    <div class="profile-tabs">
+      <button 
+        [class.active]="activeTab === 'overview'"
+        (click)="setActiveTab('overview')">
+        Overview
+      </button>
+      <button 
+        [class.active]="activeTab === 'preferences'"
+        (click)="setActiveTab('preferences')">
+        Preferences
+      </button>
+      <button 
+        [class.active]="activeTab === 'history'"
+        (click)="setActiveTab('history')">
+        Watch History
+      </button>
+      <button 
+        [class.active]="activeTab === 'lists'"
+        (click)="setActiveTab('lists')">
+        My Lists
+      </button>
+    </div>
+
+    <!-- Tab Content -->
+    <div class="tab-content">
+      <!-- Overview Tab -->
+      <div *ngIf="activeTab === 'overview'" class="overview-tab">
+        <div class="section-grid">
+          <!-- Recent Activity -->
+          <div class="activity-section">
+            <h2>Recent Activity</h2>
+            <div class="activity-feed">
+              <div class="activity-item" *ngFor="let _ of [1,2,3]">
+                <i class="pi pi-star-fill"></i>
+                <div class="activity-content">
+                  <p>Rated <strong>Inception</strong> 5 stars</p>
+                  <span class="activity-time">2 hours ago</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Favorite Genres -->
+          <div class="genres-section">
+            <h2>Favorite Genres</h2>
+            <div class="genre-chips">
+              <span class="genre-chip" *ngFor="let genre of preferredGenres">
+                {{ genre }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Preferences Tab -->
+      <div *ngIf="activeTab === 'preferences'" class="preferences-tab">
+        <h2>Genre Preferences</h2>
+        <div class="genre-selection">
+          <button 
+            *ngFor="let genre of genres"
+            class="genre-chip"
+            [class.active]="preferredGenres.includes(genre)"
+            (click)="toggleGenre(genre)">
+            {{ genre }}
+          </button>
+        </div>
+
+        <h2>Notification Settings</h2>
+        <div class="notification-settings">
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" checked>
+              New recommendations
+            </label>
+          </div>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" checked>
+              Friend activity
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Watch History Tab -->
+      <div *ngIf="activeTab === 'history'" class="history-tab">
+        <div class="movies-grid">
+          <div class="movie-card" *ngFor="let movie of watchHistory">
+            <div class="movie-poster">
+              <div class="watch-date">Watched on Mar 15, 2024</div>
+              <div class="hover-info">
+                <h3>Movie Title</h3>
+                <div class="movie-meta">
+                  <span class="rating">
+                    <i class="pi pi-star-fill"></i>
+                    8.5
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lists Tab -->
+      <div *ngIf="activeTab === 'lists'" class="lists-tab">
+        <!-- Watchlist -->
+        <div class="list-section">
+          <h2>Watchlist</h2>
+          <div class="movies-grid">
+            <div class="movie-card" *ngFor="let movie of watchlist; let i = index">
+              <div class="movie-poster">
+                <button class="remove-btn" (click)="removeFromList('watchlist', i)">
+                  <i class="pi pi-times"></i>
+                </button>
+                <div class="hover-info">
+                  <h3>Movie Title</h3>
+                  <button class="btn btn-small">
+                    <i class="pi pi-play"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Favorites -->
+        <div class="list-section">
+          <h2>Favorites</h2>
+          <div class="movies-grid">
+            <div class="movie-card" *ngFor="let movie of favorites; let i = index">
+              <div class="movie-poster">
+                <button class="remove-btn" (click)="removeFromList('favorites', i)">
+                  <i class="pi pi-times"></i>
+                </button>
+                <div class="hover-info">
+                  <h3>Movie Title</h3>
+                  <button class="btn btn-small">
+                    <i class="pi pi-play"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

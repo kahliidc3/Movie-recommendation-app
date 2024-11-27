@@ -1,0 +1,75 @@
+<div class="home-container">
+  <!-- Featured Movie Banner -->
+  <section class="featured-banner">
+    <div class="featured-content">
+      <h1 class="movie-title">Inception</h1>
+      <div class="movie-meta">
+        <span class="rating">8.8</span>
+        <span class="year">2010</span>
+        <span class="duration">148 min</span>
+      </div>
+      <p class="movie-description">
+        A thief who steals corporate secrets through dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.
+      </p>
+      <div class="action-buttons">
+        <button class="btn btn-primary watch-btn">
+          <i class="pi pi-play"></i>
+          Watch Now
+        </button>
+        <button class="btn btn-secondary add-btn">
+          <i class="pi pi-plus"></i>
+          Add to List
+        </button>
+      </div>
+    </div>
+    <div class="gradient-overlay"></div>
+  </section>
+
+  <!-- Movie Categories -->
+  <section class="movie-sections">
+    <!-- Recommended -->
+    <div class="movie-category">
+      <h2>Recommended for You</h2>
+      <div class="movie-row">
+        <button class="scroll-button left">
+          <i class="pi pi-chevron-left"></i>
+        </button>
+        <div class="movies-slider">
+          <div class="movie-card" *ngFor="let i of [1,2,3,4,5,6]">
+            <div class="movie-poster">
+              <div class="hover-info">
+                <h3>Movie Title</h3>
+                <div class="movie-brief">
+                  <span class="rating">8.5</span>
+                  <span class="year">2024</span>
+                </div>
+                <button class="btn btn-small">
+                  <i class="pi pi-play"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="scroll-button right">
+          <i class="pi pi-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Trending Now -->
+    <div class="movie-category">
+      <h2>Trending Now</h2>
+      <div class="movie-row">
+        <!-- Similar structure as above -->
+      </div>
+    </div>
+
+    <!-- Continue Watching -->
+    <div class="movie-category">
+      <h2>Continue Watching</h2>
+      <div class="movie-row">
+        <!-- Similar structure as above -->
+      </div>
+    </div>
+  </section>
+</div>

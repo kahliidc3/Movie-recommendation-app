@@ -1,0 +1,97 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="auth-header">
+      <h1>Welcome Back</h1>
+      <p>Sign in to continue your movie journey</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="auth-form">
+      <!-- Email Field -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <div class="input-wrapper">
+          <i class="pi pi-envelope"></i>
+          <input 
+            type="email" 
+            id="email"
+            formControlName="email"
+            placeholder="Enter your email"
+            [class.error]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+          >
+        </div>
+        <span class="error-message" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+          {{ getErrorMessage('email') }}
+        </span>
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="input-wrapper">
+          <i class="pi pi-lock"></i>
+          <input 
+            [type]="showPassword ? 'text' : 'password'"
+            id="password"
+            formControlName="password"
+            placeholder="Enter your password"
+            [class.error]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+          >
+          <button 
+            type="button"
+            class="toggle-password"
+            (click)="togglePasswordVisibility()">
+            <i [class]="showPassword ? 'pi pi-eye-slash' : 'pi pi-eye'"></i>
+          </button>
+        </div>
+        <span class="error-message" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+          {{ getErrorMessage('password') }}
+        </span>
+      </div>
+
+      <!-- Remember Me & Forgot Password -->
+      <div class="form-actions">
+        <label class="remember-me">
+          <input type="checkbox" formControlName="rememberMe">
+          <span>Remember me</span>
+        </label>
+        <a routerLink="/forgot-password" class="forgot-password">Forgot Password?</a>
+      </div>
+
+      <!-- Submit Button -->
+      <button 
+        type="submit" 
+        class="btn btn-primary submit-btn"
+        [disabled]="isLoading">
+        <i class="pi pi-spinner pi-spin" *ngIf="isLoading"></i>
+        <span>{{ isLoading ? 'Signing in...' : 'Sign In' }}</span>
+      </button>
+    </form>
+
+    <!-- Social Login -->
+    <div class="social-login">
+      <div class="divider">
+        <span>or continue with</span>
+      </div>
+      
+      <div class="social-buttons">
+        <button class="social-btn google" (click)="loginWithProvider('google')">
+          <i class="pi pi-google"></i>
+          <span>Google</span>
+        </button>
+        <button class="social-btn facebook" (click)="loginWithProvider('facebook')">
+          <i class="pi pi-facebook"></i>
+          <span>Facebook</span>
+        </button>
+        <button class="social-btn apple" (click)="loginWithProvider('apple')">
+          <i class="pi pi-apple"></i>
+          <span>Apple</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Sign Up Link -->
+    <div class="auth-footer">
+      <p>Don't have an account? <a routerLink="/signup">Sign up</a></p>
+    </div>
+  </div>
+</div>

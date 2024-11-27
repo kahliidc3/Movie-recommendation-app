@@ -1,0 +1,107 @@
+<div class="search-container">
+  <!-- Search Header -->
+  <div class="search-header">
+    <div class="search-bar">
+      <i class="pi pi-search"></i>
+      <input 
+        type="text" 
+        [(ngModel)]="searchTerm"
+        (input)="onSearchInput(searchTerm)"
+        placeholder="Search movies, TV shows, actors..."
+      >
+    </div>
+    <button class="btn btn-filter" (click)="toggleFilters()">
+      <i class="pi pi-filter"></i>
+      Filters
+    </button>
+  </div>
+
+  <!-- Filters Section -->
+  <div class="filters-section" [class.show]="showFilters">
+    <div class="filter-group">
+      <h3>Genres</h3>
+      <div class="filter-options">
+        <button 
+          *ngFor="let genre of genres"
+          class="filter-chip"
+          [class.active]="selectedGenres.includes(genre)"
+          (click)="toggleGenre(genre)">
+          {{ genre }}
+        </button>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <h3>Release Year</h3>
+      <div class="filter-options">
+        <button 
+          *ngFor="let year of years.slice(0, 8)"
+          class="filter-chip"
+          [class.active]="selectedYears.includes(year)"
+          (click)="toggleYear(year)">
+          {{ year }}
+        </button>
+        <button class="filter-chip more-button">
+          <i class="pi pi-ellipsis-h"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <h3>Rating</h3>
+      <div class="filter-options">
+        <button 
+          *ngFor="let rating of ratings"
+          class="filter-chip"
+          [class.active]="selectedRating === rating"
+          (click)="setRating(rating)">
+          {{ rating }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results Section -->
+  <div class="results-section">
+    <div class="results-header">
+      <h2>Search Results</h2>
+      <div class="results-meta">
+        <span>{{ searchResults.length }} results</span>
+        <select class="sort-select">
+          <option value="relevance">Relevance</option>
+          <option value="rating">Rating</option>
+          <option value="year">Release Year</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="results-grid">
+      <div class="movie-card" *ngFor="let result of searchResults">
+        <div class="movie-poster">
+          <div class="poster-overlay">
+            <div class="hover-info">
+              <h3>Movie Title</h3>
+              <div class="movie-meta">
+                <span class="year">2024</span>
+                <span class="rating">
+                  <i class="pi pi-star-fill"></i>
+                  8.5
+                </span>
+              </div>
+              <button class="btn btn-small">
+                <i class="pi pi-play"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Load More -->
+    <div class="load-more">
+      <button class="btn btn-secondary">
+        Load More Results
+      </button>
+    </div>
+  </div>
+</div>
