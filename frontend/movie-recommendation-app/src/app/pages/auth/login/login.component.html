@@ -16,8 +16,8 @@
   <div class="w-full max-w-md bg-gray-800/30 p-8 md:p-10 rounded-3xl backdrop-blur-3xl shadow-2xl transition-all duration-700 hover:scale-[1.01] border border-white/10">
     <!-- Header -->
     <div class="text-center mb-8 animate__animated animate__fadeInDown">
-      <h1 class="text-4xl md:text-5xl font-extrabold font-poppins text-white mb-3 drop-shadow-lg">Login</h1>
-      <p class="text-secondary-color font-inter opacity-55">Welcome back! Please enter your credentials.</p>
+      <h1 class="text-4xl md:text-5xl font-extrabold font-poppins text-white mb-3 drop-shadow-lg">Welcome Back</h1>
+      <p class="text-secondary-color font-inter opacity-55">Sign in to continue your movie journey</p>
     </div>
 
     <!-- Form -->
@@ -35,9 +35,10 @@
             placeholder="Enter your email"
             class="w-full pl-10 pr-3 py-3 bg-dark-light/30 border-none text-white placeholder:text-secondary-color/50 focus:ring-2 focus:ring-primary/50 focus:shadow-glow rounded-lg transition-all duration-200"
             [ngClass]="{'p-invalid': loginForm.get('email')?.invalid && loginForm.get('email')?.touched}"
+            aria-describedby="email-error"
           >
         </span>
-        <small class="text-red-400 block mt-1" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+        <small id="email-error" class="text-red-400 block mt-1" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
           Email is required or invalid.
         </small>
       </div>
@@ -56,9 +57,10 @@
             styleClass="w-full"
             inputStyleClass="w-full pl-10 pr-3 py-3 bg-dark-light/30 border-none text-white placeholder:text-secondary-color/50 focus:ring-2 focus:ring-primary/50 focus:shadow-glow rounded-lg transition-all duration-200"
             [ngClass]="{'p-invalid': loginForm.get('password')?.invalid && loginForm.get('password')?.touched}"
+            aria-describedby="password-error"
           ></p-password>
         </span>
-        <small class="text-red-400 block mt-1" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+        <small id="password-error" class="text-red-400 block mt-1" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
           Password is required.
         </small>
       </div>
@@ -70,17 +72,22 @@
             [binary]="true" 
             formControlName="rememberMe"
             styleClass="w-5 h-5 mr-2"
+            aria-label="Remember me"
           ></p-checkbox>
           <label class="ml-2 text-sm text-secondary-color opacity-75">Remember me</label>
         </div>
-        <a [routerLink]="['/auth/forgot-password']" class="text-sm text-primary hover:text-primary-light transition-colors duration-300">
+        <a routerLink="/auth/forgot-password" class="text-sm text-primary hover:text-primary-light transition-colors duration-300">
           Forgot Password?
         </a>
       </div>
 
       <!-- Submit Button -->
-      <button type="submit" [disabled]="isLoading || loginForm.invalid" class="w-full p-3 text-lg font-bold bg-primary hover:bg-primary-light transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-xl rounded-lg flex items-center justify-center gap-2">
-        <i class="pi pi-sign-in mr-2"></i>
+      <button 
+        type="submit" 
+        [disabled]="isLoading || loginForm.invalid"
+        class="w-full p-3 text-lg font-bold bg-primary hover:bg-primary-light transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-xl rounded-lg flex items-center justify-center gap-2"
+      >
+        <i class="pi pi-sign-in"></i>
         <span>{{ isLoading ? 'Signing in...' : 'Sign In' }}</span>
       </button>
     </form>
@@ -101,6 +108,7 @@
           type="button" 
           class="p-0 rounded-full bg-dark-light/30 hover:bg-dark-light/50 transition-all duration-300 flex items-center justify-center h-12 w-12"
           (click)="loginWithProvider('google')"
+          aria-label="Login with Google"
         >
           <i class="pi pi-google text-xl"></i>
         </button>
@@ -108,6 +116,7 @@
           type="button" 
           class="p-0 rounded-full bg-dark-light/30 hover:bg-dark-light/50 transition-all duration-300 flex items-center justify-center h-12 w-12"
           (click)="loginWithProvider('facebook')"
+          aria-label="Login with Facebook"
         >
           <i class="pi pi-facebook text-xl"></i>
         </button>
@@ -115,6 +124,7 @@
           type="button" 
           class="p-0 rounded-full bg-dark-light/30 hover:bg-dark-light/50 transition-all duration-300 flex items-center justify-center h-12 w-12"
           (click)="loginWithProvider('apple')"
+          aria-label="Login with Apple"
         >
           <i class="pi pi-apple text-xl"></i>
         </button>
@@ -125,7 +135,7 @@
     <div class="mt-8 text-center animate__animated animate__fadeInUp animate__delay-1-5s">
       <p class="text-secondary-color opacity-75">
         Don't have an account? 
-        <a [routerLink]="['/auth/signup']" class="text-primary hover:text-primary-light transition-colors duration-300 font-medium">
+        <a routerLink="/auth/signup" class="text-primary hover:text-primary-light transition-colors duration-300 font-medium">
           Sign up
         </a>
       </p>

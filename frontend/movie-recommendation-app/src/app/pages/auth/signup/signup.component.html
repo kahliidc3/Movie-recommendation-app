@@ -25,19 +25,20 @@
       <!-- Name Field -->
       <div class="space-y-2">
         <label for="name" class="block text-sm font-medium text-secondary-color opacity-75">Full Name</label>
-        <span class="p-input-icon-left w-full">
-          <i class="pi pi-user text-secondary-color opacity-50"></i>
+        <span class="relative w-full flex items-center">
+          <i class="pi pi-user absolute left-3 text-secondary-color opacity-50"></i>
           <input 
             pInputText 
             type="text" 
             id="name"
             formControlName="name"
             placeholder="Enter your full name"
-            class="w-full bg-dark-light/30 border-none text-white placeholder:text-secondary-color/50 focus:ring-2 focus:ring-primary/50 focus:shadow-glow transition-all duration-200"
+            class="w-full pl-10 pr-3 py-3 bg-dark-light/30 border-none text-white placeholder:text-secondary-color/50 focus:ring-2 focus:ring-primary/50 focus:shadow-glow rounded-lg transition-all duration-200"
             [ngClass]="{'p-invalid': signupForm.get('name')?.invalid && signupForm.get('name')?.touched}"
+            aria-describedby="name-error"
           >
         </span>
-        <small class="text-red-400 block mt-1" *ngIf="signupForm.get('name')?.invalid && signupForm.get('name')?.touched">
+        <small id="name-error" class="text-red-400 block mt-1" *ngIf="signupForm.get('name')?.invalid && signupForm.get('name')?.touched">
           Full Name is required.
         </small>
       </div>
@@ -45,19 +46,20 @@
       <!-- Email Field -->
       <div class="space-y-2">
         <label for="email" class="block text-sm font-medium text-secondary-color opacity-75">Email</label>
-        <span class="p-input-icon-left w-full">
-          <i class="pi pi-envelope text-secondary-color opacity-50"></i>
+        <span class="relative w-full flex items-center">
+          <i class="pi pi-envelope absolute left-3 text-secondary-color opacity-50"></i>
           <input 
             pInputText 
             type="email" 
             id="email"
             formControlName="email"
             placeholder="Enter your email"
-            class="w-full bg-dark-light/30 border-none text-white placeholder:text-secondary-color/50 focus:ring-2 focus:ring-primary/50 focus:shadow-glow transition-all duration-200"
+            class="w-full pl-10 pr-3 py-3 bg-dark-light/30 border-none text-white placeholder:text-secondary-color/50 focus:ring-2 focus:ring-primary/50 focus:shadow-glow rounded-lg transition-all duration-200"
             [ngClass]="{'p-invalid': signupForm.get('email')?.invalid && signupForm.get('email')?.touched}"
+            aria-describedby="email-error"
           >
         </span>
-        <small class="text-red-400 block mt-1" *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched">
+        <small id="email-error" class="text-red-400 block mt-1" *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched">
           Email is required or invalid.
         </small>
       </div>
@@ -65,8 +67,8 @@
       <!-- Password Field -->
       <div class="space-y-2">
         <label for="password" class="block text-sm font-medium text-secondary-color opacity-75">Password</label>
-        <span class="p-input-icon-left p-input-icon-right w-full">
-          <i class="pi pi-lock text-secondary-color opacity-50"></i>
+        <span class="relative w-full flex items-center">
+          <i class="pi pi-lock absolute left-3 text-secondary-color opacity-50"></i>
           <p-password 
             id="password"
             formControlName="password"
@@ -74,16 +76,17 @@
             [feedback]="true"
             placeholder="Enter your password"
             styleClass="w-full"
-            inputStyleClass="w-full bg-dark-light/30 border-none text-white placeholder:text-secondary-color/50 focus:ring-2 focus:ring-primary/50 focus:shadow-glow transition-all duration-200"
+            inputStyleClass="w-full pl-10 pr-3 py-3 bg-dark-light/30 border-none text-white placeholder:text-secondary-color/50 focus:ring-2 focus:ring-primary/50 focus:shadow-glow rounded-lg transition-all duration-200"
             [ngClass]="{'p-invalid': signupForm.get('password')?.invalid && signupForm.get('password')?.touched}"
             (onInput)="checkPasswordStrength()"
+            aria-describedby="password-error"
           ></p-password>
         </span>
         <!-- Password Strength Meter -->
         <div class="w-full h-2 rounded-full bg-gray-700/40 mt-2">
           <div [ngClass]="passwordStrengthClass" [style.width.%]="passwordStrength" class="h-2 rounded-full transition-all duration-300"></div>
         </div>
-        <small class="text-red-400 block mt-1" *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched">
+        <small id="password-error" class="text-red-400 block mt-1" *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched">
           Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.
         </small>
       </div>
@@ -91,8 +94,8 @@
       <!-- Confirm Password Field -->
       <div class="space-y-2">
         <label for="confirmPassword" class="block text-sm font-medium text-secondary-color opacity-75">Confirm Password</label>
-        <span class="p-input-icon-left w-full">
-          <i class="pi pi-lock text-secondary-color opacity-50"></i>
+        <span class="relative w-full flex items-center">
+          <i class="pi pi-lock absolute left-3 text-secondary-color opacity-50"></i>
           <p-password 
             id="confirmPassword"
             formControlName="confirmPassword"
@@ -100,37 +103,39 @@
             [feedback]="false"
             placeholder="Confirm your password"
             styleClass="w-full"
-            inputStyleClass="w-full bg-dark-light/30 border-none text-white placeholder:text-secondary-color/50 focus:ring-2 focus:ring-primary/50 focus:shadow-glow transition-all duration-200"
+            inputStyleClass="w-full pl-10 pr-3 py-3 bg-dark-light/30 border-none text-white placeholder:text-secondary-color/50 focus:ring-2 focus:ring-primary/50 focus:shadow-glow rounded-lg transition-all duration-200"
             [ngClass]="{'p-invalid': signupForm.get('confirmPassword')?.invalid && signupForm.get('confirmPassword')?.touched}"
+            aria-describedby="confirm-password-error"
           ></p-password>
         </span>
-        <small class="text-red-400 block mt-1" *ngIf="signupForm.get('confirmPassword')?.invalid && signupForm.get('confirmPassword')?.touched">
+        <small id="confirm-password-error" class="text-red-400 block mt-1" *ngIf="signupForm.get('confirmPassword')?.invalid && signupForm.get('confirmPassword')?.touched">
           Passwords do not match.
         </small>
       </div>
 
       <!-- Terms and Conditions -->
       <div class="flex items-center gap-2 text-secondary-color opacity-75">
-        <p-checkbox name="acceptTerms" [binary]="true" formControlName="terms"></p-checkbox>
+        <p-checkbox 
+          name="acceptTerms" 
+          [binary]="true" 
+          formControlName="terms"
+          aria-describedby="terms-error"
+        ></p-checkbox>
         <label for="acceptTerms" class="cursor-pointer">I agree to the <a routerLink="/terms" class="text-primary hover:text-primary-light transition-colors duration-300 font-medium">Terms & Conditions</a></label>
       </div>
-      <small class="text-red-400 block mt-1" *ngIf="signupForm.get('terms')?.invalid && signupForm.get('terms')?.touched">
+      <small id="terms-error" class="text-red-400 block mt-1" *ngIf="signupForm.get('terms')?.invalid && signupForm.get('terms')?.touched">
         You must accept the terms and conditions.
       </small>
 
       <!-- Submit Button -->
-      <p-button 
+      <button 
         type="submit" 
-        [loading]="isLoading"
         [disabled]="isLoading || signupForm.invalid"
-        styleClass="w-full p-3 text-lg font-bold"
-        class="w-full bg-primary hover:bg-primary-light transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-xl"
+        class="w-full p-3 text-lg font-bold bg-primary hover:bg-primary-light transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-xl rounded-lg flex items-center justify-center gap-2"
       >
-        <ng-template pTemplate="content">
-          <i class="pi pi-user-plus mr-2"></i>
-          {{ isLoading ? 'Creating Account...' : 'Create Account' }}
-        </ng-template>
-      </p-button>
+        <i class="pi pi-user-plus"></i>
+        <span>{{ isLoading ? 'Creating Account...' : 'Create Account' }}</span>
+      </button>
     </form>
 
     <!-- Social Signup -->
@@ -146,26 +151,29 @@
       
       <div class="grid grid-cols-3 gap-4">
         <button 
-          pButton 
           type="button" 
-          icon="pi pi-google" 
-          class="p-button-outlined p-button-rounded bg-dark-light/30 hover:bg-dark-light/50 transition-all duration-300"
+          class="p-0 rounded-full bg-dark-light/30 hover:bg-dark-light/50 transition-all duration-300 flex items-center justify-center h-12 w-12"
           (click)="signupWithProvider('google')"
-        ></button>
+          aria-label="Sign up with Google"
+        >
+          <i class="pi pi-google text-xl"></i>
+        </button>
         <button 
-          pButton 
           type="button" 
-          icon="pi pi-facebook" 
-          class="p-button-outlined p-button-rounded bg-dark-light/30 hover:bg-dark-light/50 transition-all duration-300"
+          class="p-0 rounded-full bg-dark-light/30 hover:bg-dark-light/50 transition-all duration-300 flex items-center justify-center h-12 w-12"
           (click)="signupWithProvider('facebook')"
-        ></button>
+          aria-label="Sign up with Facebook"
+        >
+          <i class="pi pi-facebook text-xl"></i>
+        </button>
         <button 
-          pButton 
           type="button" 
-          icon="pi pi-apple" 
-          class="p-button-outlined p-button-rounded bg-dark-light/30 hover:bg-dark-light/50 transition-all duration-300"
+          class="p-0 rounded-full bg-dark-light/30 hover:bg-dark-light/50 transition-all duration-300 flex items-center justify-center h-12 w-12"
           (click)="signupWithProvider('apple')"
-        ></button>
+          aria-label="Sign up with Apple"
+        >
+          <i class="pi pi-apple text-xl"></i>
+        </button>
       </div>
     </div>
 
