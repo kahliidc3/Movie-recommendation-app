@@ -1,6 +1,32 @@
 .landing-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, var(--dark) 0%, var(--dark-light) 100%);
+  /* Removed background gradient, as Three.js canvas will handle it */
+  /* background: linear-gradient(135deg, var(--dark) 0%, var(--dark-light) 100%); */
+}
+
+.glass-card {
+  background: rgba(30, 30, 30, 0.03); /* Near-invisible background */
+  backdrop-filter: blur(60px); /* Max blur for cards */
+  -webkit-backdrop-filter: blur(60px);
+  border: none; /* Absolutely no borders for sections */
+  border-radius: 40px; /* Consistent with HTML, more rounded */
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1); /* Extremely subtle, diffused shadow */
+  transition: all 0.9s cubic-bezier(0.25, 0.8, 0.25, 1); /* Longer, ultra-smooth transition */
+}
+
+.glass-card:hover {
+  transform: translateY(-20px); /* More pronounced lift */
+  box-shadow: 0 50px 150px rgba(0, 0, 0, 1); /* Intense, wide, diffused shadow on hover for extreme elevation */
+}
+
+.glass-element {
+  background: rgba(45, 45, 45, 0.02); /* Near-invisible background */
+  backdrop-filter: blur(65px); /* Max blur for visual elements */
+  -webkit-backdrop-filter: blur(65px);
+  border: none; /* Absolutely no borders for elements */
+  border-radius: 60px; /* Fully rounded/softer edges */
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3); /* Softer, deeper shadow */
+  transition: all 1.5s cubic-bezier(0.25, 0.8, 0.25, 1); /* Longest, smoothest transition */
 }
 
 .hero {
@@ -18,15 +44,17 @@
   z-index: 1;
 }
 
-h1 {
+.hero-content h1 {
   font-size: 4rem;
   margin-bottom: 1rem;
   background: linear-gradient(to right, var(--primary), var(--primary-light));
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
-.subtitle {
+.hero-content p {
   font-size: 1.5rem;
   color: var(--text-secondary);
   margin-bottom: 2rem;
@@ -35,6 +63,16 @@ h1 {
 .cta-buttons {
   display: flex;
   gap: 1rem;
+}
+
+.cta-buttons .bg-primary {
+  background-color: var(--primary);
+  color: var(--dark);
+}
+
+.cta-buttons .border-primary {
+  border-color: var(--primary);
+  color: var(--primary);
 }
 
 .btn-secondary {
@@ -49,73 +87,55 @@ h1 {
   height: 500px;
 }
 
-.geometric-shape {
-  position: absolute;
-  border: 2px solid var(--primary);
-  opacity: 0.5;
-  animation: rotate 20s linear infinite;
+.feature-card {
+  background: rgba(30, 30, 30, 0.03);
+  backdrop-filter: blur(60px);
+  -webkit-backdrop-filter: blur(60px);
+  border: none;
+  border-radius: 40px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.9s cubic-bezier(0.25, 0.8, 0.25, 1);
+  text-align: center;
 }
 
-.geometric-shape:nth-child(1) {
-  width: 300px;
-  height: 300px;
-  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+.feature-card:hover {
+  transform: translateY(-20px); /* More pronounced lift, consistent with glass-card */
+  box-shadow: 0 50px 150px rgba(0, 0, 0, 0.9); /* Deeper, more intense shadow on hover */
 }
 
-.geometric-shape:nth-child(2) {
-  width: 400px;
-  height: 400px;
-  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-  animation-duration: 25s;
+.feature-card i {
+  font-size: 6rem; /* Even larger icon size for maximum impact */
+  color: var(--primary); /* Maintain primary color */
+  margin-bottom: 4rem; /* More space */
+  transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.geometric-shape:nth-child(3) {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  animation-duration: 15s;
+.feature-card:hover i {
+  color: var(--primary-light); /* Brighter hover color */
+  transform: scale(1.4) rotate(40deg); /* More dynamic icon animation */
+}
+
+.feature-card h3 {
+  color: var(--text-primary);
+  margin-bottom: 2rem; /* More space */
+  font-family: 'Poppins', sans-serif;
+  font-size: 3rem; /* Adjusted size for maximum impact */
+  letter-spacing: 2.2px; /* More spaced out */
+  font-weight: 700; /* Bold */
+}
+
+.feature-card p {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.35rem; /* Slightly larger for readability */
+  line-height: 2.1; /* More relaxed line height */
+  opacity: 0.45; /* Even less opaque for ethereal feel */
 }
 
 .features {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
+  gap: 6rem; /* Increased gap for more breathing room */
   padding: 5%;
-}
-
-.feature-card {
-  background: rgba(30, 30, 30, 0.5);
-  backdrop-filter: blur(10px);
-  padding: 2rem;
-  border-radius: 15px;
-  text-align: center;
-  border: 1px solid rgba(255, 215, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-.feature-card:hover {
-  transform: translateY(-10px);
-  border-color: var(--primary);
-}
-
-.feature-card i {
-  font-size: 2.5rem;
-  color: var(--primary);
-  margin-bottom: 1rem;
-}
-
-.feature-card h3 {
-  color: var(--primary);
-  margin-bottom: 0.5rem;
-}
-
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 @media (max-width: 768px) {
@@ -134,7 +154,10 @@ h1 {
     grid-template-columns: 1fr;
   }
 
-  h1 {
+  /* Removed as h1 is now explicitly styled in HTML */
+  /*
+  .hero-content h1 {
     font-size: 2.5rem;
   }
+  */
 }

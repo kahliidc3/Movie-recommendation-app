@@ -1,74 +1,165 @@
-<div class="home-container">
-  <!-- Featured Movie Banner -->
-  <section class="featured-banner">
-    <div class="featured-content">
-      <h1 class="movie-title">Inception</h1>
-      <div class="movie-meta">
-        <span class="rating">8.8</span>
-        <span class="year">2010</span>
-        <span class="duration">148 min</span>
+<div class="min-h-screen bg-gradient-to-br from-dark via-gray-900 to-dark-light relative overflow-x-hidden">
+  <!-- Animated Background (e.g., stars/particles) -->
+  <div class="absolute inset-0 z-0 pointer-events-none">
+    <canvas id="three-hero-bg" class="w-full h-full block"></canvas>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="relative flex items-center justify-center h-[70vh] md:h-[60vh] lg:h-[65vh] overflow-hidden">
+    <div class="absolute inset-0 bg-cover bg-center opacity-60" style="background-image: url('/assets/images/inception-banner.jpg'); z-index:1;"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-dark via-dark/80 to-transparent z-10"></div>
+    <div class="relative z-20 max-w-4xl mx-auto px-6 py-10 bg-gray-900/60 rounded-3xl shadow-2xl backdrop-blur-2xl border border-white/10 flex flex-col md:flex-row items-center gap-8 animate__animated animate__fadeInDown glassmorphic-card">
+      <div class="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-2 drop-shadow-lg leading-tight tracking-tight">Inception</h1>
+        <div class="flex flex-wrap gap-2 mb-3">
+          <span class="bg-primary/20 text-primary px-3 py-1 rounded-full text-xs font-semibold">Sci-Fi</span>
+          <span class="bg-primary/20 text-primary px-3 py-1 rounded-full text-xs font-semibold">Action</span>
+          <span class="bg-primary/20 text-primary px-3 py-1 rounded-full text-xs font-semibold">Thriller</span>
+        </div>
+        <div class="flex gap-4 mb-3 text-text-secondary text-sm">
+          <span class="flex items-center gap-1"><i class="pi pi-star text-primary"></i> 8.8</span>
+          <span>2010</span>
+          <span>148 min</span>
+        </div>
+        <p class="text-base md:text-lg text-text-secondary mb-6 opacity-80">
+          A thief who steals corporate secrets through dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.
+        </p>
+        <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+          <button class="bg-primary text-dark px-7 py-3 rounded-full font-bold shadow-xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 hover:shadow-2xl flex items-center gap-2">
+            <i class="pi pi-play"></i> Watch Now
+          </button>
+          <button class="bg-transparent border border-primary text-primary px-7 py-3 rounded-full font-bold shadow-xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 hover:shadow-2xl flex items-center gap-2">
+            <i class="pi pi-plus"></i> Add to List
+          </button>
+          <button class="bg-dark-light text-primary px-7 py-3 rounded-full font-bold shadow-xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 hover:shadow-2xl flex items-center gap-2">
+            <i class="pi pi-info-circle"></i> More Info
+          </button>
+        </div>
       </div>
-      <p class="movie-description">
-        A thief who steals corporate secrets through dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.
-      </p>
-      <div class="action-buttons">
-        <button class="btn btn-primary watch-btn">
-          <i class="pi pi-play"></i>
-          Watch Now
-        </button>
-        <button class="btn btn-secondary add-btn">
-          <i class="pi pi-plus"></i>
-          Add to List
-        </button>
+      <div class="flex-1 flex items-center justify-center relative">
+        <div class="w-64 h-96 rounded-2xl overflow-hidden shadow-2xl border-4 border-primary/30 bg-cover bg-center relative group hover:scale-105 transition-transform duration-300" style="background-image: url('/assets/images/inception-banner.jpg');">
+          <div class="absolute inset-0 bg-gradient-to-t from-dark/80 via-transparent to-transparent"></div>
+          <button class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-primary text-dark px-5 py-2 rounded-full font-bold shadow-lg flex items-center gap-2 opacity-90 hover:opacity-100 transition">
+            <i class="pi pi-youtube"></i> Play Trailer
+          </button>
+        </div>
       </div>
     </div>
-    <div class="gradient-overlay"></div>
   </section>
 
-  <!-- Movie Categories -->
-  <section class="movie-sections">
+  <!-- Section Divider -->
+  <div class="flex items-center justify-center my-10">
+    <div class="h-0.5 w-16 bg-primary rounded-full"></div>
+    <i class="pi pi-film text-primary mx-4 text-2xl"></i>
+    <div class="h-0.5 w-16 bg-primary rounded-full"></div>
+  </div>
+
+  <!-- Movie Carousels -->
+  <section class="py-6 px-2 md:px-6">
     <!-- Recommended -->
-    <div class="movie-category">
-      <h2>Recommended for You</h2>
-      <div class="movie-row">
-        <button class="scroll-button left">
+    <div class="mb-14">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-2xl font-bold text-white">Recommended for You</h2>
+        <a href="#" class="text-primary text-sm font-semibold hover:underline">See All</a>
+      </div>
+      <div class="relative group">
+        <button class="absolute left-0 top-1/2 -translate-y-1/2 bg-dark/80 text-primary p-2 rounded-full hover:bg-primary hover:text-dark transition z-10 opacity-0 group-hover:opacity-100 focus:opacity-100">
           <i class="pi pi-chevron-left"></i>
         </button>
-        <div class="movies-slider">
-          <div class="movie-card" *ngFor="let i of [1,2,3,4,5,6]">
-            <div class="movie-poster">
-              <div class="hover-info">
-                <h3>Movie Title</h3>
-                <div class="movie-brief">
-                  <span class="rating">8.5</span>
-                  <span class="year">2024</span>
-                </div>
-                <button class="btn btn-small">
-                  <i class="pi pi-play"></i>
-                </button>
+        <div class="flex gap-6 overflow-x-auto pb-4 scrollbar-hide hover:scrollbar-thin">
+          <!-- Movie Card Example -->
+          <div class="flex-none w-56 bg-dark-light/80 rounded-2xl overflow-hidden shadow-xl hover:scale-105 transition relative group">
+            <div class="h-80 bg-cover bg-center" style="background-image: url('/assets/images/movie1.jpg');"></div>
+            <div class="p-4">
+              <h3 class="text-lg font-bold text-white mb-1">Movie Title</h3>
+              <div class="flex gap-2 text-text-secondary text-xs mb-2">
+                <span class="flex items-center gap-1"><i class="pi pi-star text-primary"></i> 8.5</span>
+                <span>2024</span>
               </div>
+              <div class="flex gap-1 flex-wrap mb-2">
+                <span class="bg-primary/20 text-primary px-2 py-0.5 rounded-full text-[10px] font-semibold">Action</span>
+                <span class="bg-primary/20 text-primary px-2 py-0.5 rounded-full text-[10px] font-semibold">Adventure</span>
+              </div>
+              <button class="bg-primary/90 text-dark px-3 py-1 rounded-full text-xs font-bold shadow hover:bg-primary hover:scale-105 transition">Quick View</button>
             </div>
           </div>
+          <!-- Repeat for more movies -->
         </div>
-        <button class="scroll-button right">
+        <button class="absolute right-0 top-1/2 -translate-y-1/2 bg-dark/80 text-primary p-2 rounded-full hover:bg-primary hover:text-dark transition z-10 opacity-0 group-hover:opacity-100 focus:opacity-100">
           <i class="pi pi-chevron-right"></i>
         </button>
       </div>
     </div>
 
     <!-- Trending Now -->
-    <div class="movie-category">
-      <h2>Trending Now</h2>
-      <div class="movie-row">
-        <!-- Similar structure as above -->
+    <div class="mb-14">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-2xl font-bold text-white">Trending Now</h2>
+        <a href="#" class="text-primary text-sm font-semibold hover:underline">See All</a>
+      </div>
+      <div class="relative group">
+        <button class="absolute left-0 top-1/2 -translate-y-1/2 bg-dark/80 text-primary p-2 rounded-full hover:bg-primary hover:text-dark transition z-10 opacity-0 group-hover:opacity-100 focus:opacity-100">
+          <i class="pi pi-chevron-left"></i>
+        </button>
+        <div class="flex gap-6 overflow-x-auto pb-4 scrollbar-hide hover:scrollbar-thin">
+          <div class="flex-none w-56 bg-dark-light/80 rounded-2xl overflow-hidden shadow-xl hover:scale-105 transition relative group">
+            <div class="h-80 bg-cover bg-center" style="background-image: url('/assets/images/movie2.jpg');"></div>
+            <div class="p-4">
+              <h3 class="text-lg font-bold text-white mb-1">Movie Title</h3>
+              <div class="flex gap-2 text-text-secondary text-xs mb-2">
+                <span class="flex items-center gap-1"><i class="pi pi-star text-primary"></i> 8.5</span>
+                <span>2024</span>
+              </div>
+              <div class="flex gap-1 flex-wrap mb-2">
+                <span class="bg-primary/20 text-primary px-2 py-0.5 rounded-full text-[10px] font-semibold">Drama</span>
+                <span class="bg-primary/20 text-primary px-2 py-0.5 rounded-full text-[10px] font-semibold">Mystery</span>
+              </div>
+              <button class="bg-primary/90 text-dark px-3 py-1 rounded-full text-xs font-bold shadow hover:bg-primary hover:scale-105 transition">Quick View</button>
+            </div>
+          </div>
+          <!-- Repeat for more movies -->
+        </div>
+        <button class="absolute right-0 top-1/2 -translate-y-1/2 bg-dark/80 text-primary p-2 rounded-full hover:bg-primary hover:text-dark transition z-10 opacity-0 group-hover:opacity-100 focus:opacity-100">
+          <i class="pi pi-chevron-right"></i>
+        </button>
       </div>
     </div>
 
     <!-- Continue Watching -->
-    <div class="movie-category">
-      <h2>Continue Watching</h2>
-      <div class="movie-row">
-        <!-- Similar structure as above -->
+    <div class="mb-14">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-2xl font-bold text-white">Continue Watching</h2>
+        <a href="#" class="text-primary text-sm font-semibold hover:underline">See All</a>
+      </div>
+      <div class="relative group">
+        <button class="absolute left-0 top-1/2 -translate-y-1/2 bg-dark/80 text-primary p-2 rounded-full hover:bg-primary hover:text-dark transition z-10 opacity-0 group-hover:opacity-100 focus:opacity-100">
+          <i class="pi pi-chevron-left"></i>
+        </button>
+        <div class="flex gap-6 overflow-x-auto pb-4 scrollbar-hide hover:scrollbar-thin">
+          <div class="flex-none w-56 bg-dark-light/80 rounded-2xl overflow-hidden shadow-xl hover:scale-105 transition relative group">
+            <div class="h-80 bg-cover bg-center relative" style="background-image: url('/assets/images/movie3.jpg');">
+              <div class="absolute bottom-0 left-0 w-full h-2 bg-primary/30">
+                <div class="h-2 bg-primary rounded-r-full" style="width: 60%"></div>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="text-lg font-bold text-white mb-1">Movie Title</h3>
+              <div class="flex gap-2 text-text-secondary text-xs mb-2">
+                <span class="flex items-center gap-1"><i class="pi pi-star text-primary"></i> 8.5</span>
+                <span>2024</span>
+              </div>
+              <div class="flex gap-1 flex-wrap mb-2">
+                <span class="bg-primary/20 text-primary px-2 py-0.5 rounded-full text-[10px] font-semibold">Animation</span>
+                <span class="bg-primary/20 text-primary px-2 py-0.5 rounded-full text-[10px] font-semibold">Family</span>
+              </div>
+              <button class="bg-primary/90 text-dark px-3 py-1 rounded-full text-xs font-bold shadow hover:bg-primary hover:scale-105 transition">Resume</button>
+            </div>
+          </div>
+          <!-- Repeat for more movies -->
+        </div>
+        <button class="absolute right-0 top-1/2 -translate-y-1/2 bg-dark/80 text-primary p-2 rounded-full hover:bg-primary hover:text-dark transition z-10 opacity-0 group-hover:opacity-100 focus:opacity-100">
+          <i class="pi pi-chevron-right"></i>
+        </button>
       </div>
     </div>
   </section>

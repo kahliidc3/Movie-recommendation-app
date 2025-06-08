@@ -1,6 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
 
-/* Global styles */
+/* Define custom utility classes */
+.glass-card {
+  background: rgba(30, 30, 30, 0.03);
+  backdrop-filter: blur(60px);
+  -webkit-backdrop-filter: blur(60px);
+  border: none;
+  border-radius: 40px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.9s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.glass-card:hover {
+  transform: translateY(-20px);
+  box-shadow: 0 50px 150px rgba(0, 0, 0, 1);
+}
+
+.text-text-secondary {
+  color: #B3B3B3;
+}
+
+/* Custom styles */
 :root {
   --primary: #FFD700;
   --primary-light: #FFEB3B;
@@ -15,7 +35,11 @@ body {
   padding: 0;
   background-color: var(--dark);
   color: var(--text-primary);
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif;
 }
 
 .container {
@@ -33,6 +57,7 @@ body {
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
 }
 
 .btn:hover {
@@ -52,4 +77,42 @@ body {
 
 .card:hover {
   transform: translateY(-5px);
+}
+
+.text-secondary-color {
+  color: var(--text-secondary);
+}
+
+/* Animations */
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 0.005;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.01;
+    transform: scale(1.05);
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(30, 30, 30, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-light);
 }

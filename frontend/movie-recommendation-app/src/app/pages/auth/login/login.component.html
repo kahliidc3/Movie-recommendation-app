@@ -1,97 +1,134 @@
-<div class="auth-container">
-  <div class="auth-card">
-    <div class="auth-header">
-      <h1>Welcome Back</h1>
-      <p>Sign in to continue your movie journey</p>
+<!-- Brand/Logo at the top -->
+<div class="flex justify-center mb-6 animate__animated animate__fadeInDown">
+  <a routerLink="/" class="flex items-center gap-2">
+    <img src="/Logo.png" alt="CineSage Logo" class="h-12 w-auto drop-shadow-lg">
+    <span class="text-2xl font-extrabold text-primary font-poppins tracking-wide">CineSage</span>
+  </a>
+</div>
+
+<!-- Background Elements -->
+<div class="fixed inset-0 w-full h-full overflow-hidden pointer-events-none">
+  <div class="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-gradient-to-tr from-primary to-primary-light opacity-[.005] blur-3xl animate-pulse-slow"></div>
+  <div class="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-gradient-to-tr from-primary to-primary-light opacity-[.005] blur-3xl animate-pulse-slow"></div>
+</div>
+
+<div class="min-h-screen w-full flex items-center justify-center p-4 relative z-10">
+  <div class="w-full max-w-md bg-gray-800/30 p-8 md:p-10 rounded-3xl backdrop-blur-3xl shadow-2xl transition-all duration-700 hover:scale-[1.01] border border-white/10">
+    <!-- Header -->
+    <div class="text-center mb-8 animate__animated animate__fadeInDown">
+      <h1 class="text-4xl md:text-5xl font-extrabold font-poppins text-white mb-3 drop-shadow-lg">Login</h1>
+      <p class="text-secondary-color font-inter opacity-55">Welcome back! Please enter your credentials.</p>
     </div>
 
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="auth-form">
+    <!-- Form -->
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-6 animate__animated animate__fadeInUp">
       <!-- Email Field -->
-      <div class="form-group">
-        <label for="email">Email</label>
-        <div class="input-wrapper">
-          <i class="pi pi-envelope"></i>
+      <div class="space-y-2">
+        <label for="email" class="block text-sm font-medium text-secondary-color opacity-75">Email</label>
+        <span class="relative w-full flex items-center">
+          <i class="pi pi-envelope absolute left-3 text-secondary-color opacity-50"></i>
           <input 
+            pInputText 
             type="email" 
             id="email"
             formControlName="email"
             placeholder="Enter your email"
-            [class.error]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+            class="w-full pl-10 pr-3 py-3 bg-dark-light/30 border-none text-white placeholder:text-secondary-color/50 focus:ring-2 focus:ring-primary/50 focus:shadow-glow rounded-lg transition-all duration-200"
+            [ngClass]="{'p-invalid': loginForm.get('email')?.invalid && loginForm.get('email')?.touched}"
           >
-        </div>
-        <span class="error-message" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
-          {{ getErrorMessage('email') }}
         </span>
+        <small class="text-red-400 block mt-1" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+          Email is required or invalid.
+        </small>
       </div>
 
       <!-- Password Field -->
-      <div class="form-group">
-        <label for="password">Password</label>
-        <div class="input-wrapper">
-          <i class="pi pi-lock"></i>
-          <input 
-            [type]="showPassword ? 'text' : 'password'"
+      <div class="space-y-2">
+        <label for="password" class="block text-sm font-medium text-secondary-color opacity-75">Password</label>
+        <span class="relative w-full flex items-center">
+          <i class="pi pi-lock absolute left-3 text-secondary-color opacity-50"></i>
+          <p-password 
             id="password"
             formControlName="password"
+            [toggleMask]="true"
+            [feedback]="false"
             placeholder="Enter your password"
-            [class.error]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
-          >
-          <button 
-            type="button"
-            class="toggle-password"
-            (click)="togglePasswordVisibility()">
-            <i [class]="showPassword ? 'pi pi-eye-slash' : 'pi pi-eye'"></i>
-          </button>
-        </div>
-        <span class="error-message" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
-          {{ getErrorMessage('password') }}
+            styleClass="w-full"
+            inputStyleClass="w-full pl-10 pr-3 py-3 bg-dark-light/30 border-none text-white placeholder:text-secondary-color/50 focus:ring-2 focus:ring-primary/50 focus:shadow-glow rounded-lg transition-all duration-200"
+            [ngClass]="{'p-invalid': loginForm.get('password')?.invalid && loginForm.get('password')?.touched}"
+          ></p-password>
         </span>
+        <small class="text-red-400 block mt-1" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+          Password is required.
+        </small>
       </div>
 
       <!-- Remember Me & Forgot Password -->
-      <div class="form-actions">
-        <label class="remember-me">
-          <input type="checkbox" formControlName="rememberMe">
-          <span>Remember me</span>
-        </label>
-        <a routerLink="/forgot-password" class="forgot-password">Forgot Password?</a>
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          <p-checkbox 
+            [binary]="true" 
+            formControlName="rememberMe"
+            styleClass="w-5 h-5 mr-2"
+          ></p-checkbox>
+          <label class="ml-2 text-sm text-secondary-color opacity-75">Remember me</label>
+        </div>
+        <a [routerLink]="['/auth/forgot-password']" class="text-sm text-primary hover:text-primary-light transition-colors duration-300">
+          Forgot Password?
+        </a>
       </div>
 
       <!-- Submit Button -->
-      <button 
-        type="submit" 
-        class="btn btn-primary submit-btn"
-        [disabled]="isLoading">
-        <i class="pi pi-spinner pi-spin" *ngIf="isLoading"></i>
+      <button type="submit" [disabled]="isLoading || loginForm.invalid" class="w-full p-3 text-lg font-bold bg-primary hover:bg-primary-light transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-xl rounded-lg flex items-center justify-center gap-2">
+        <i class="pi pi-sign-in mr-2"></i>
         <span>{{ isLoading ? 'Signing in...' : 'Sign In' }}</span>
       </button>
     </form>
 
     <!-- Social Login -->
-    <div class="social-login">
-      <div class="divider">
-        <span>or continue with</span>
+    <div class="mt-8 animate__animated animate__fadeInUp animate__delay-1s">
+      <div class="relative flex items-center justify-center mb-6">
+        <div class="absolute inset-0 flex items-center">
+          <div class="w-full border-t border-secondary-color/20"></div>
+        </div>
+        <div class="relative">
+          <span class="px-4 text-sm text-secondary-color opacity-50 bg-dark">or continue with</span>
+        </div>
       </div>
       
-      <div class="social-buttons">
-        <button class="social-btn google" (click)="loginWithProvider('google')">
-          <i class="pi pi-google"></i>
-          <span>Google</span>
+      <div class="grid grid-cols-3 gap-4">
+        <button 
+          type="button" 
+          class="p-0 rounded-full bg-dark-light/30 hover:bg-dark-light/50 transition-all duration-300 flex items-center justify-center h-12 w-12"
+          (click)="loginWithProvider('google')"
+        >
+          <i class="pi pi-google text-xl"></i>
         </button>
-        <button class="social-btn facebook" (click)="loginWithProvider('facebook')">
-          <i class="pi pi-facebook"></i>
-          <span>Facebook</span>
+        <button 
+          type="button" 
+          class="p-0 rounded-full bg-dark-light/30 hover:bg-dark-light/50 transition-all duration-300 flex items-center justify-center h-12 w-12"
+          (click)="loginWithProvider('facebook')"
+        >
+          <i class="pi pi-facebook text-xl"></i>
         </button>
-        <button class="social-btn apple" (click)="loginWithProvider('apple')">
-          <i class="pi pi-apple"></i>
-          <span>Apple</span>
+        <button 
+          type="button" 
+          class="p-0 rounded-full bg-dark-light/30 hover:bg-dark-light/50 transition-all duration-300 flex items-center justify-center h-12 w-12"
+          (click)="loginWithProvider('apple')"
+        >
+          <i class="pi pi-apple text-xl"></i>
         </button>
       </div>
     </div>
 
     <!-- Sign Up Link -->
-    <div class="auth-footer">
-      <p>Don't have an account? <a routerLink="/signup">Sign up</a></p>
+    <div class="mt-8 text-center animate__animated animate__fadeInUp animate__delay-1-5s">
+      <p class="text-secondary-color opacity-75">
+        Don't have an account? 
+        <a [routerLink]="['/auth/signup']" class="text-primary hover:text-primary-light transition-colors duration-300 font-medium">
+          Sign up
+        </a>
+      </p>
     </div>
   </div>
 </div>

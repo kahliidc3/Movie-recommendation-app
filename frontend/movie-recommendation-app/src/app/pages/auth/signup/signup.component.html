@@ -1,141 +1,182 @@
-<div class="auth-container">
-  <div class="auth-card">
-    <div class="auth-header">
-      <h1>Create Account</h1>
-      <p>Join our movie community today</p>
+<!-- Brand/Logo at the top -->
+<div class="flex justify-center mb-6 animate__animated animate__fadeInDown">
+  <a routerLink="/" class="flex items-center gap-2">
+    <img src="/Logo.png" alt="CineSage Logo" class="h-12 w-auto drop-shadow-lg">
+    <span class="text-2xl font-extrabold text-primary font-poppins tracking-wide">CineSage</span>
+  </a>
+</div>
+
+<!-- Background Elements -->
+<div class="fixed inset-0 w-full h-full overflow-hidden pointer-events-none">
+  <div class="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-gradient-to-tr from-primary to-primary-light opacity-[.005] blur-3xl animate-pulse-slow"></div>
+  <div class="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-gradient-to-tr from-primary to-primary-light opacity-[.005] blur-3xl animate-pulse-slow"></div>
+</div>
+
+<div class="min-h-screen w-full flex items-center justify-center p-4 relative z-10">
+  <div class="w-full max-w-md bg-gray-800/30 p-8 md:p-10 rounded-3xl backdrop-blur-3xl shadow-2xl transform transition-all duration-700 ease-in-out hover:scale-[1.005] hover:shadow-3xl border border-white/10">
+    <!-- Header -->
+    <div class="text-center mb-8 animate__animated animate__fadeInDown">
+      <h1 class="text-4xl md:text-5xl font-extrabold font-poppins text-white mb-3 drop-shadow-lg">Join Us</h1>
+      <p class="text-secondary-color font-inter opacity-55">Create your account to unlock personalized recommendations</p>
     </div>
 
-    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="auth-form">
-      <!-- Username Field -->
-      <div class="form-group">
-        <label for="username">Username</label>
-        <div class="input-wrapper">
-          <i class="pi pi-user"></i>
+    <!-- Form -->
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="space-y-6 animate__animated animate__fadeInUp">
+      <!-- Name Field -->
+      <div class="space-y-2">
+        <label for="name" class="block text-sm font-medium text-secondary-color opacity-75">Full Name</label>
+        <span class="p-input-icon-left w-full">
+          <i class="pi pi-user text-secondary-color opacity-50"></i>
           <input 
+            pInputText 
             type="text" 
-            id="username"
-            formControlName="username"
-            placeholder="Choose a username"
-            [class.error]="signupForm.get('username')?.invalid && signupForm.get('username')?.touched"
+            id="name"
+            formControlName="name"
+            placeholder="Enter your full name"
+            class="w-full bg-dark-light/30 border-none text-white placeholder:text-secondary-color/50 focus:ring-2 focus:ring-primary/50 focus:shadow-glow transition-all duration-200"
+            [ngClass]="{'p-invalid': signupForm.get('name')?.invalid && signupForm.get('name')?.touched}"
           >
-        </div>
-        <span class="error-message" *ngIf="signupForm.get('username')?.invalid && signupForm.get('username')?.touched">
-          {{ getErrorMessage('username') }}
         </span>
+        <small class="text-red-400 block mt-1" *ngIf="signupForm.get('name')?.invalid && signupForm.get('name')?.touched">
+          Full Name is required.
+        </small>
       </div>
 
       <!-- Email Field -->
-      <div class="form-group">
-        <label for="email">Email</label>
-        <div class="input-wrapper">
-          <i class="pi pi-envelope"></i>
+      <div class="space-y-2">
+        <label for="email" class="block text-sm font-medium text-secondary-color opacity-75">Email</label>
+        <span class="p-input-icon-left w-full">
+          <i class="pi pi-envelope text-secondary-color opacity-50"></i>
           <input 
+            pInputText 
             type="email" 
             id="email"
             formControlName="email"
             placeholder="Enter your email"
-            [class.error]="signupForm.get('email')?.invalid && signupForm.get('email')?.touched"
+            class="w-full bg-dark-light/30 border-none text-white placeholder:text-secondary-color/50 focus:ring-2 focus:ring-primary/50 focus:shadow-glow transition-all duration-200"
+            [ngClass]="{'p-invalid': signupForm.get('email')?.invalid && signupForm.get('email')?.touched}"
           >
-        </div>
-        <span class="error-message" *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched">
-          {{ getErrorMessage('email') }}
         </span>
+        <small class="text-red-400 block mt-1" *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched">
+          Email is required or invalid.
+        </small>
       </div>
 
       <!-- Password Field -->
-      <div class="form-group">
-        <label for="password">Password</label>
-        <div class="input-wrapper">
-          <i class="pi pi-lock"></i>
-          <input 
-            [type]="showPassword ? 'text' : 'password'"
+      <div class="space-y-2">
+        <label for="password" class="block text-sm font-medium text-secondary-color opacity-75">Password</label>
+        <span class="p-input-icon-left p-input-icon-right w-full">
+          <i class="pi pi-lock text-secondary-color opacity-50"></i>
+          <p-password 
             id="password"
             formControlName="password"
-            placeholder="Create a password"
-            [class.error]="signupForm.get('password')?.invalid && signupForm.get('password')?.touched"
-          >
-          <button 
-            type="button"
-            class="toggle-password"
-            (click)="togglePasswordVisibility('password')">
-            <i [class]="showPassword ? 'pi pi-eye-slash' : 'pi pi-eye'"></i>
-          </button>
-        </div>
-        <span class="error-message" *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched">
-          {{ getErrorMessage('password') }}
+            [toggleMask]="true"
+            [feedback]="true"
+            placeholder="Enter your password"
+            styleClass="w-full"
+            inputStyleClass="w-full bg-dark-light/30 border-none text-white placeholder:text-secondary-color/50 focus:ring-2 focus:ring-primary/50 focus:shadow-glow transition-all duration-200"
+            [ngClass]="{'p-invalid': signupForm.get('password')?.invalid && signupForm.get('password')?.touched}"
+            (onInput)="checkPasswordStrength()"
+          ></p-password>
         </span>
+        <!-- Password Strength Meter -->
+        <div class="w-full h-2 rounded-full bg-gray-700/40 mt-2">
+          <div [ngClass]="passwordStrengthClass" [style.width.%]="passwordStrength" class="h-2 rounded-full transition-all duration-300"></div>
+        </div>
+        <small class="text-red-400 block mt-1" *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched">
+          Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.
+        </small>
       </div>
 
       <!-- Confirm Password Field -->
-      <div class="form-group">
-        <label for="confirmPassword">Confirm Password</label>
-        <div class="input-wrapper">
-          <i class="pi pi-lock"></i>
-          <input 
-            [type]="showConfirmPassword ? 'text' : 'password'"
+      <div class="space-y-2">
+        <label for="confirmPassword" class="block text-sm font-medium text-secondary-color opacity-75">Confirm Password</label>
+        <span class="p-input-icon-left w-full">
+          <i class="pi pi-lock text-secondary-color opacity-50"></i>
+          <p-password 
             id="confirmPassword"
             formControlName="confirmPassword"
+            [toggleMask]="true"
+            [feedback]="false"
             placeholder="Confirm your password"
-            [class.error]="signupForm.get('confirmPassword')?.invalid && signupForm.get('confirmPassword')?.touched"
-          >
-          <button 
-            type="button"
-            class="toggle-password"
-            (click)="togglePasswordVisibility('confirmPassword')">
-            <i [class]="showConfirmPassword ? 'pi pi-eye-slash' : 'pi pi-eye'"></i>
-          </button>
-        </div>
-        <span class="error-message" *ngIf="signupForm.get('confirmPassword')?.touched && signupForm.hasError('mismatch')">
-          Passwords do not match
+            styleClass="w-full"
+            inputStyleClass="w-full bg-dark-light/30 border-none text-white placeholder:text-secondary-color/50 focus:ring-2 focus:ring-primary/50 focus:shadow-glow transition-all duration-200"
+            [ngClass]="{'p-invalid': signupForm.get('confirmPassword')?.invalid && signupForm.get('confirmPassword')?.touched}"
+          ></p-password>
         </span>
+        <small class="text-red-400 block mt-1" *ngIf="signupForm.get('confirmPassword')?.invalid && signupForm.get('confirmPassword')?.touched">
+          Passwords do not match.
+        </small>
       </div>
 
       <!-- Terms and Conditions -->
-      <div class="form-group terms">
-        <label class="checkbox-label">
-          <input type="checkbox" formControlName="terms">
-          <span>I agree to the <a href="/terms" target="_blank">Terms & Conditions</a></span>
-        </label>
-        <span class="error-message" *ngIf="signupForm.get('terms')?.invalid && signupForm.get('terms')?.touched">
-          You must accept the terms and conditions
-        </span>
+      <div class="flex items-center gap-2 text-secondary-color opacity-75">
+        <p-checkbox name="acceptTerms" [binary]="true" formControlName="terms"></p-checkbox>
+        <label for="acceptTerms" class="cursor-pointer">I agree to the <a routerLink="/terms" class="text-primary hover:text-primary-light transition-colors duration-300 font-medium">Terms & Conditions</a></label>
       </div>
+      <small class="text-red-400 block mt-1" *ngIf="signupForm.get('terms')?.invalid && signupForm.get('terms')?.touched">
+        You must accept the terms and conditions.
+      </small>
 
       <!-- Submit Button -->
-      <button 
+      <p-button 
         type="submit" 
-        class="btn btn-primary submit-btn"
-        [disabled]="isLoading">
-        <i class="pi pi-spinner pi-spin" *ngIf="isLoading"></i>
-        <span>{{ isLoading ? 'Creating Account...' : 'Create Account' }}</span>
-      </button>
+        [loading]="isLoading"
+        [disabled]="isLoading || signupForm.invalid"
+        styleClass="w-full p-3 text-lg font-bold"
+        class="w-full bg-primary hover:bg-primary-light transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-xl"
+      >
+        <ng-template pTemplate="content">
+          <i class="pi pi-user-plus mr-2"></i>
+          {{ isLoading ? 'Creating Account...' : 'Create Account' }}
+        </ng-template>
+      </p-button>
     </form>
 
     <!-- Social Signup -->
-    <div class="social-login">
-      <div class="divider">
-        <span>or sign up with</span>
+    <div class="mt-8 animate__animated animate__fadeInUp animate__delay-1s">
+      <div class="relative flex items-center justify-center mb-6">
+        <div class="absolute inset-0 flex items-center">
+          <div class="w-full border-t border-secondary-color/20"></div>
+        </div>
+        <div class="relative">
+          <span class="px-4 text-sm text-secondary-color opacity-50 bg-dark">or sign up with</span>
+        </div>
       </div>
       
-      <div class="social-buttons">
-        <button class="social-btn google" (click)="signupWithProvider('google')">
-          <i class="pi pi-google"></i>
-          <span>Google</span>
-        </button>
-        <button class="social-btn facebook" (click)="signupWithProvider('facebook')">
-          <i class="pi pi-facebook"></i>
-          <span>Facebook</span>
-        </button>
-        <button class="social-btn apple" (click)="signupWithProvider('apple')">
-          <i class="pi pi-apple"></i>
-          <span>Apple</span>
-        </button>
+      <div class="grid grid-cols-3 gap-4">
+        <button 
+          pButton 
+          type="button" 
+          icon="pi pi-google" 
+          class="p-button-outlined p-button-rounded bg-dark-light/30 hover:bg-dark-light/50 transition-all duration-300"
+          (click)="signupWithProvider('google')"
+        ></button>
+        <button 
+          pButton 
+          type="button" 
+          icon="pi pi-facebook" 
+          class="p-button-outlined p-button-rounded bg-dark-light/30 hover:bg-dark-light/50 transition-all duration-300"
+          (click)="signupWithProvider('facebook')"
+        ></button>
+        <button 
+          pButton 
+          type="button" 
+          icon="pi pi-apple" 
+          class="p-button-outlined p-button-rounded bg-dark-light/30 hover:bg-dark-light/50 transition-all duration-300"
+          (click)="signupWithProvider('apple')"
+        ></button>
       </div>
     </div>
 
     <!-- Login Link -->
-    <div class="auth-footer">
-      <p>Already have an account? <a routerLink="/login">Sign in</a></p>
+    <div class="mt-8 text-center animate__animated animate__fadeInUp animate__delay-1-5s">
+      <p class="text-secondary-color opacity-75">
+        Already have an account? 
+        <a routerLink="/auth/login" class="text-primary hover:text-primary-light transition-colors duration-300 font-medium">
+          Login
+        </a>
+      </p>
     </div>
   </div>
 </div>

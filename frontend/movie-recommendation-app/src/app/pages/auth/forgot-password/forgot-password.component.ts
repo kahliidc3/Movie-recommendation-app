@@ -1,50 +1,66 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-forgot-password',
-  standalone: true,
-  imports: [CommonModule, RouterLink, ReactiveFormsModule],
   templateUrl: './forgot-password.component.html',
-  styleUrls: ['./forgot-password.component.css']
+  styleUrls: ['./forgot-password.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    ButtonModule,
+    InputTextModule,
+    ToastModule
+  ],
+  providers: [MessageService]
 })
-export class ForgotPasswordComponent {
+export class ForgotPasswordComponent implements OnInit {
   resetForm: FormGroup;
-  isLoading = false;
   emailSent = false;
+  isLoading = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private messageService: MessageService
+  ) {
     this.resetForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]]
     });
   }
 
+  ngOnInit(): void {}
+
   onSubmit(): void {
     if (this.resetForm.valid) {
       this.isLoading = true;
-      // In a real app, this would call a password reset service
-      console.log('Password reset requested for:', this.resetForm.value.email);
+      // TODO: Implement password reset logic
       setTimeout(() => {
         this.isLoading = false;
         this.emailSent = true;
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Password reset instructions sent to your email'
+        });
       }, 1500);
     } else {
-      this.resetForm.get('email')?.markAsTouched();
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Please enter a valid email address'
+      });
     }
   }
 
-  getErrorMessage(): string {
-    const control = this.resetForm.get('email');
-    if (control?.errors) {
-      if (control.errors['required']) {
-        return 'Email is required';
-      }
-      if (control.errors['email']) {
-        return 'Please enter a valid email address';
-      }
-    }
-    return '';
+  goToLogin(): void {
+    this.router.navigate(['/auth/login']);
   }
 }

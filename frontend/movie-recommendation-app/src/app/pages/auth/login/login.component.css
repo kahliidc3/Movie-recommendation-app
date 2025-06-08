@@ -224,3 +224,166 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Custom styles for PrimeNG components */
+:host ::ng-deep {
+  .p-inputtext {
+    background-color: var(--dark-light) !important;
+    border: none !important;
+    color: var(--text-primary) !important;
+    padding: 1rem 1.5rem !important;
+    border-radius: 0.75rem !important;
+    transition: all 0.3s ease !important;
+    width: 100%;
+  }
+
+  .p-inputtext:focus {
+    box-shadow: 0 0 0 2px var(--primary) !important;
+  }
+
+  .p-inputtext::placeholder {
+    color: var(--text-secondary) !important;
+    opacity: 0.7 !important;
+  }
+
+  .p-password {
+    width: 100%;
+  }
+
+  .p-password-input {
+    background-color: var(--dark-light) !important;
+    border: none !important;
+    color: var(--text-primary) !important;
+    padding: 1rem 1.5rem !important;
+    border-radius: 0.75rem !important;
+    transition: all 0.3s ease !important;
+    width: 100%;
+  }
+
+  .p-password-input:focus {
+    box-shadow: 0 0 0 2px var(--primary) !important;
+  }
+
+  .p-password-input::placeholder {
+    color: var(--text-secondary) !important;
+    opacity: 0.7 !important;
+  }
+
+  .p-checkbox .p-checkbox-box {
+    border: 2px solid var(--primary) !important;
+    background-color: var(--dark-light) !important;
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+    transition: all 0.3s ease !important;
+  }
+
+  .p-checkbox .p-checkbox-box.p-highlight {
+    background-color: var(--primary) !important;
+    border-color: var(--primary) !important;
+  }
+
+  .p-checkbox .p-checkbox-box:hover {
+    border-color: var(--primary-light) !important;
+  }
+
+  .p-button {
+    background-color: var(--primary) !important;
+    color: var(--dark) !important;
+    border: none !important;
+    padding: 1rem 2rem !important;
+    border-radius: 9999px !important; /* full rounded */
+    font-weight: bold !important;
+    font-size: 1.125rem !important; /* text-lg */
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  .p-button:hover {
+    background-color: var(--primary-light) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 16px rgba(255, 215, 0, 0.2) !important;
+  }
+
+  .p-button:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.5) !important;
+  }
+
+  .p-button.p-button-outlined {
+    background-color: transparent !important;
+    color: var(--primary) !important;
+    border: 1px solid var(--primary) !important;
+  }
+
+  .p-button.p-button-outlined:hover {
+    background-color: rgba(255, 215, 0, 0.1) !important;
+    color: var(--primary-light) !important;
+    border-color: var(--primary-light) !important;
+  }
+
+  .p-toast {
+    opacity: 0.9 !important;
+  }
+
+  .p-toast .p-toast-message {
+    background-color: var(--dark-light) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--primary) !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2) !important;
+  }
+
+  .p-toast .p-toast-message-content {
+    display: flex;
+    align-items: center;
+  }
+
+  .p-toast .p-toast-message-icon {
+    color: var(--primary) !important;
+  }
+
+  .p-toast .p-toast-message-text {
+    margin-left: 1rem;
+  }
+}
+
+/* Glass card effect */
+.glass-card {
+  background: rgba(30, 30, 30, 0.3);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* Animations */
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 0.005;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.01;
+    transform: scale(1.05);
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(30, 30, 30, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-light);
+}

@@ -1,34 +1,28 @@
-<div class="movie-detail-container">
+<div class="min-h-screen bg-gradient-to-br from-dark via-gray-900 to-dark-light pb-24">
   <!-- Hero Section -->
-  <section class="movie-hero">
-    <div class="backdrop-image"></div>
-    <div class="gradient-overlay"></div>
-    
-    <div class="movie-info">
-      <div class="poster">
-        <img src="assets/images/movie-poster.jpg" alt="Movie Poster">
+  <section class="relative h-[60vh] flex items-end">
+    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('/assets/images/inception-banner.jpg');"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-dark via-dark/80 to-transparent"></div>
+    <div class="relative z-10 flex items-end gap-10 max-w-6xl mx-auto px-8 pb-10 w-full">
+      <div class="hidden md:block w-56 h-80 rounded-2xl overflow-hidden shadow-2xl border-4 border-primary/20">
+        <img src="/assets/images/movie-poster.jpg" alt="Movie Poster" class="w-full h-full object-cover" />
       </div>
-      
-      <div class="details">
-        <h1>Inception</h1>
-        <div class="meta-info">
-          <span class="rating">
-            <i class="pi pi-star-fill"></i>
-            8.8
-          </span>
-          <span class="year">2010</span>
-          <span class="duration">2h 28m</span>
-          <span class="genre">Sci-Fi</span>
+      <div class="flex-1">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-4 drop-shadow-lg">Inception</h1>
+        <div class="flex flex-wrap gap-4 mb-4 text-text-secondary text-lg">
+          <span class="flex items-center gap-1"><i class="pi pi-star text-primary"></i> 8.8</span>
+          <span>2010</span>
+          <span>2h 28m</span>
+          <span class="bg-primary/10 text-primary px-3 py-1 rounded-full font-semibold">Sci-Fi</span>
         </div>
-        
-        <div class="actions">
-          <button class="btn btn-primary">
+        <div class="flex gap-4 mb-6">
+          <button class="bg-primary text-dark px-6 py-3 rounded-lg font-bold hover:bg-primary-light transition flex items-center gap-2">
             <i class="pi pi-play"></i> Watch Now
           </button>
-          <button class="btn btn-secondary">
+          <button class="bg-dark-light border border-primary text-primary px-6 py-3 rounded-lg font-bold hover:bg-primary/10 transition flex items-center gap-2">
             <i class="pi pi-heart"></i>
           </button>
-          <button class="btn btn-secondary">
+          <button class="bg-dark-light border border-primary text-primary px-6 py-3 rounded-lg font-bold hover:bg-primary/10 transition flex items-center gap-2">
             <i class="pi pi-share-alt"></i>
           </button>
         </div>
@@ -37,102 +31,102 @@
   </section>
 
   <!-- Content Tabs -->
-  <section class="content-tabs">
-    <div class="tab-buttons">
+  <section class="max-w-6xl mx-auto px-4 mt-10">
+    <div class="flex gap-4 border-b border-primary/10 mb-8">
       <button 
-        [class.active]="activeTab === 'overview'"
+        class="px-6 py-3 text-lg font-bold text-white border-b-4 transition-all duration-200"
+        [ngClass]="activeTab === 'overview' ? 'border-primary text-primary' : 'border-transparent'"
         (click)="setActiveTab('overview')">
         Overview
       </button>
       <button 
-        [class.active]="activeTab === 'cast'"
+        class="px-6 py-3 text-lg font-bold text-white border-b-4 transition-all duration-200"
+        [ngClass]="activeTab === 'cast' ? 'border-primary text-primary' : 'border-transparent'"
         (click)="setActiveTab('cast')">
         Cast & Crew
       </button>
       <button 
-        [class.active]="activeTab === 'reviews'"
+        class="px-6 py-3 text-lg font-bold text-white border-b-4 transition-all duration-200"
+        [ngClass]="activeTab === 'reviews' ? 'border-primary text-primary' : 'border-transparent'"
         (click)="setActiveTab('reviews')">
         Reviews
       </button>
     </div>
 
     <!-- Overview Tab -->
-    <div class="tab-content" *ngIf="activeTab === 'overview'">
-      <div class="overview">
+    <div *ngIf="activeTab === 'overview'" class="mb-12">
+      <div class="mb-6 text-lg text-text-secondary max-w-2xl">
         <p [class.expanded]="showFullDescription">
           Dom Cobb is a skilled thief, the absolute best in the dangerous art of extraction, 
           stealing valuable secrets from deep within the subconscious during the dream state, 
           when the mind is at its most vulnerable...
         </p>
-        <button class="btn-text" (click)="toggleDescription()">
+        <button class="text-primary font-bold mt-2" (click)="toggleDescription()">
           {{ showFullDescription ? 'Show Less' : 'Read More' }}
         </button>
-
-        <div class="details-grid">
-          <div class="detail-item">
-            <h3>Director</h3>
-            <p>Christopher Nolan</p>
-          </div>
-          <div class="detail-item">
-            <h3>Writers</h3>
-            <p>Christopher Nolan</p>
-          </div>
-          <div class="detail-item">
-            <h3>Release Date</h3>
-            <p>July 16, 2010</p>
-          </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-dark-light rounded-xl p-6 shadow-lg">
+          <h3 class="text-primary font-bold mb-1">Director</h3>
+          <p class="text-white">Christopher Nolan</p>
+        </div>
+        <div class="bg-dark-light rounded-xl p-6 shadow-lg">
+          <h3 class="text-primary font-bold mb-1">Writers</h3>
+          <p class="text-white">Christopher Nolan</p>
+        </div>
+        <div class="bg-dark-light rounded-xl p-6 shadow-lg">
+          <h3 class="text-primary font-bold mb-1">Release Date</h3>
+          <p class="text-white">July 16, 2010</p>
         </div>
       </div>
     </div>
 
     <!-- Cast Tab -->
-    <div class="tab-content" *ngIf="activeTab === 'cast'">
-      <div class="cast-grid">
-        <div class="cast-card" *ngFor="let i of [1,2,3,4,5,6]">
-          <div class="cast-image"></div>
-          <div class="cast-info">
-            <h3>Leonardo DiCaprio</h3>
-            <p>Dom Cobb</p>
+    <div *ngIf="activeTab === 'cast'" class="mb-12">
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+        <div class="bg-dark-light rounded-xl p-4 flex flex-col items-center shadow-lg" *ngFor="let i of [1,2,3,4,5,6]">
+          <div class="w-20 h-20 rounded-full bg-gradient-to-tr from-primary to-primary-light mb-3 flex items-center justify-center overflow-hidden">
+            <img src="/assets/images/cast.jpg" alt="Cast" class="w-full h-full object-cover" />
           </div>
+          <h3 class="text-white font-bold text-lg mb-1">Leonardo DiCaprio</h3>
+          <p class="text-text-secondary">Dom Cobb</p>
         </div>
       </div>
     </div>
 
     <!-- Reviews Tab -->
-    <div class="tab-content" *ngIf="activeTab === 'reviews'">
-      <div class="reviews-container">
-        <div class="review-card" *ngFor="let i of [1,2,3]">
-          <div class="review-header">
-            <div class="reviewer-info">
-              <div class="avatar"></div>
-              <div class="name-date">
-                <h3>John Doe</h3>
-                <span>March 15, 2024</span>
-              </div>
+    <div *ngIf="activeTab === 'reviews'" class="mb-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-dark-light rounded-xl p-6 shadow-lg" *ngFor="let i of [1,2,3]">
+          <div class="flex items-center gap-4 mb-3">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-primary to-primary-light flex items-center justify-center overflow-hidden">
+              <img src="/assets/images/avatar.jpg" alt="Reviewer" class="w-full h-full object-cover" />
             </div>
-            <div class="rating">
-              <i class="pi pi-star-fill"></i>
-              4.5
+            <div>
+              <h3 class="text-white font-bold">John Doe</h3>
+              <span class="text-xs text-text-secondary">March 15, 2024</span>
+            </div>
+            <div class="ml-auto flex items-center gap-1 text-primary font-bold">
+              <i class="pi pi-star-fill"></i> 4.5
             </div>
           </div>
-          <p class="review-content">
-            Amazing movie that keeps you on the edge of your seat...
-          </p>
+          <p class="text-text-secondary">Amazing movie that keeps you on the edge of your seat...</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Similar Movies -->
-  <section class="similar-movies">
-    <h2>Similar Movies</h2>
-    <div class="movies-grid">
-      <div class="movie-card" *ngFor="let i of [1,2,3,4]">
-        <div class="movie-poster">
-          <div class="hover-info">
-            <h3>Movie Title</h3>
-            <button class="btn btn-small">
-              <i class="pi pi-play"></i>
+  <section class="max-w-6xl mx-auto px-4 mt-16">
+    <h2 class="text-2xl font-bold text-white mb-6">Similar Movies</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+      <div class="rounded-xl overflow-hidden bg-dark shadow-lg hover:scale-105 transition-all duration-200 group" *ngFor="let i of [1,2,3,4]">
+        <div class="relative h-72 bg-cover bg-center" style="background-image: url('/assets/images/movie1.jpg');">
+          <div class="absolute inset-0 bg-gradient-to-t from-dark/80 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-4 z-10">
+            <h3 class="text-lg font-bold text-white mb-2">Movie Title</h3>
+            <button class="bg-primary text-dark px-4 py-2 rounded-full font-bold hover:bg-primary-light transition flex items-center gap-2">
+              <i class="pi pi-play"></i> Watch
             </button>
           </div>
         </div>

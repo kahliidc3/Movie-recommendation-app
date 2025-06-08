@@ -1,35 +1,55 @@
-<div class="landing-container">
-  <div class="hero">
-    <div class="hero-content">
-      <h1>Future of Movie Discovery</h1>
-      <p class="subtitle">AI-Powered recommendations tailored just for you</p>
-      <div class="cta-buttons">
-        <button routerLink="/login" class="btn btn-primary">Get Started</button>
-        <button routerLink="/about" class="btn btn-secondary">Learn More</button>
+<div class="min-h-screen relative flex flex-col items-center justify-center py-12 px-4 overflow-hidden">
+  <!-- Three.js Canvas Background -->
+  <canvas id="landing-three-bg" class="absolute inset-0 w-full h-full block z-0"></canvas>
+  
+  <div class="absolute inset-0 bg-gradient-to-br from-dark via-gray-900 to-dark-light opacity-[.02] z-10"></div>
+
+  <!-- Hero Section -->
+  <div class="w-full max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 mb-12 relative z-20 bg-gray-800/30 p-6 backdrop-blur-3xl shadow-2xl rounded-3xl transform transition-all duration-700 ease-in-out hover:scale-[1.005] hover:shadow-3xl border border-white/10">
+    <div class="flex-1 flex flex-col items-center md:items-start text-center md:text-left animate__animated animate__fadeInLeft">
+      <h1 class="text-4xl md:text-6xl font-extrabold font-poppins text-white mb-4 drop-shadow-lg leading-tight tracking-tighter animate__animated animate__fadeInDown">
+        Future of <span class="text-primary">Movie Discovery</span>
+      </h1>
+      <p class="text-lg md:text-xl text-secondary-color font-inter mb-6 opacity-55 leading-relaxed animate__animated animate__fadeInUp animate__delay-0-5s">
+        AI-Powered recommendations tailored just for you. Explore a universe of films like never before.
+      </p>
+      <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+        <button routerLink="/login" class="bg-primary text-dark px-8 py-3 rounded-full font-bold text-lg font-poppins shadow-xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 hover:shadow-2xl flex items-center gap-2 animate__animated animate__zoomIn animate__delay-1s group relative overflow-hidden focus:outline-none focus:ring-4 focus:ring-primary/70">
+          <i class="pi pi-play text-xl"></i>
+          Get Started
+          <span class="absolute inset-0 bg-white opacity-35 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left"></span>
+        </button>
+        <button routerLink="/about" class="bg-dark-light text-primary px-8 py-3 rounded-full font-bold text-lg font-poppins shadow-xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 hover:shadow-2xl flex items-center gap-2 animate__animated animate__zoomIn animate__delay-1-5s group relative overflow-hidden focus:outline-none focus:ring-4 focus:ring-primary/70">
+          <i class="pi pi-info-circle text-xl"></i>
+          Learn More
+          <span class="absolute inset-0 bg-primary opacity-25 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left"></span>
+        </button>
       </div>
     </div>
-    <div class="hero-visual">
-      <div class="geometric-shape"></div>
-      <div class="geometric-shape"></div>
-      <div class="geometric-shape"></div>
+    <div class="flex-1 flex items-center justify-center relative animate__animated animate__fadeInRight">
+      <div class="w-72 h-72 rounded-full bg-gradient-to-tr from-primary to-primary-light opacity-[.005] absolute -top-12 -left-12 blur-3xl animate-pulse-slow"></div>
+      <div class="w-64 h-64 rounded-[40px] bg-dark-light bg-opacity-[.02] shadow-3xl flex items-center justify-center relative z-10 overflow-hidden backdrop-blur-xl transform transition-all duration-700 ease-in-out hover:scale-103 border border-white/10">
+        <canvas id="landing-hero-3d-visual" class="w-full h-full block"></canvas>
+      </div>
     </div>
   </div>
 
-  <div class="features">
-    <div class="feature-card">
-      <i class="pi pi-star"></i>
-      <h3>Smart Recommendations</h3>
-      <p>Powered by advanced AI algorithms</p>
+  <!-- Features Section -->
+  <div class="w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 relative z-20">
+    <div class="p-6 shadow-2xl flex flex-col items-center hover:scale-[1.02] transition-all duration-500 ease-in-out animate__animated animate__fadeInUp animate__delay-2s rounded-3xl backdrop-blur-xl hover:shadow-3xl group bg-gray-800/30 border border-white/10">
+      <i class="pi pi-star text-primary text-4xl mb-4 transform transition-all duration-300 group-hover:rotate-12 group-hover:text-primary-light"></i>
+      <h3 class="text-2xl font-bold font-poppins text-white mb-2 text-center tracking-wide">Smart Recommendations</h3>
+      <p class="text-secondary-color text-center font-inter opacity-55 leading-relaxed text-sm">Powered by advanced AI algorithms, discover movies you'll love.</p>
     </div>
-    <div class="feature-card">
-      <i class="pi pi-clock"></i>
-      <h3>Real-time Updates</h3>
-      <p>Stay current with latest releases</p>
+    <div class="p-6 shadow-2xl flex flex-col items-center hover:scale-[1.02] transition-all duration-500 ease-in-out animate__animated animate__fadeInUp animate__delay-2-5s rounded-3xl backdrop-blur-xl hover:shadow-3xl group bg-gray-800/30 border border-white/10">
+      <i class="pi pi-clock text-primary text-4xl mb-4 transform transition-all duration-300 group-hover:scale-110 group-hover:text-primary-light"></i>
+      <h3 class="text-2xl font-bold font-poppins text-white mb-2 text-center tracking-wide">Real-time Updates</h3>
+      <p class="text-secondary-color text-center font-inter opacity-55 leading-relaxed text-sm">Stay current with the latest releases and trending content.</p>
     </div>
-    <div class="feature-card">
-      <i class="pi pi-users"></i>
-      <h3>Social Integration</h3>
-      <p>Share and discuss with friends</p>
+    <div class="p-6 shadow-2xl flex flex-col items-center hover:scale-[1.02] transition-all duration-500 ease-in-out animate__animated animate__fadeInUp animate__delay-3s rounded-3xl backdrop-blur-xl hover:shadow-3xl group bg-gray-800/30 border border-white/10">
+      <i class="pi pi-users text-primary text-4xl mb-4 transform transition-all duration-300 group-hover:translate-y-[-8px] group-hover:text-primary-light"></i>
+      <h3 class="text-2xl font-bold font-poppins text-white mb-2 text-center tracking-wide">Social Integration</h3>
+      <p class="text-secondary-color text-center font-inter opacity-55 leading-relaxed text-sm">Share your cinematic journey and discuss with friends.</p>
     </div>
   </div>
 </div>

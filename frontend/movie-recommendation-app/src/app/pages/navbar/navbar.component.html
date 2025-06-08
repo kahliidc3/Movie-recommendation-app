@@ -1,29 +1,109 @@
-<nav class="navbar">
-  <div class="navbar-container">
-    <a routerLink="/" class="logo">
-      <span class="logo-text">MOVIEAI</span>
-    </a>
-    
-    <div class="nav-links">
-      <a routerLink="/home" routerLinkActive="active">Home</a>
-      <a routerLink="/search" routerLinkActive="active">Discover</a>
-      <a routerLink="/favorites" routerLinkActive="active">Favorites</a>
+<nav class="fixed w-full bg-gray-900/80 backdrop-blur-lg border-b border-gray-700/60 shadow-md z-50 transition-all duration-300 ease-in-out" [ngClass]="{'scrolled': isScrolled}">
+  <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-2 relative">
+    <!-- Logo -->
+    <div class="flex items-center">
+      <a routerLink="/" class="flex items-center">
+        <img src="/Logo.png" alt="CineSage Logo" class="h-8 w-auto transition-transform duration-300 hover:scale-105">
+      </a>
     </div>
 
-    <div class="nav-actions">
-      <div class="search-bar">
-        <i class="pi pi-search"></i>
-        <input type="text" placeholder="Search movies...">
-      </div>
-      
-      <div class="user-menu" (click)="toggleMenu()">
-        <i class="pi pi-user"></i>
-        <div class="menu-dropdown" [class.show]="showMenu">
-          <a routerLink="/profile">Profile</a>
-          <a routerLink="/settings">Settings</a>
-          <a routerLink="/logout">Logout</a>
-        </div>
+    <!-- Nav Links (Desktop) -->
+    <div class="hidden md:flex items-center space-x-6">
+      <a routerLink="/home" routerLinkActive="text-primary font-medium" class="relative text-white group">
+        <span [class]="(isActive('/home')) ? 'px-3 py-1.5 rounded-lg bg-primary/30 backdrop-blur-sm inline-block transition-all duration-300 group-hover:bg-primary/40 font-bold' : 'px-3 py-1.5 rounded-lg hover:bg-gray-700/80 inline-block transition-all duration-300'">
+          <i class="pi pi-home mr-2"></i> Home
+        </span>
+      </a>
+      <a routerLink="/search" routerLinkActive="text-primary font-medium" class="relative text-white group">
+        <span [class]="(isActive('/search')) ? 'px-3 py-1.5 rounded-lg bg-primary/30 backdrop-blur-sm inline-block transition-all duration-300 group-hover:bg-primary/40 font-bold' : 'px-3 py-1.5 rounded-lg hover:bg-gray-700/80 inline-block transition-all duration-300'">
+          <i class="pi pi-search mr-2"></i> Search
+        </span>
+      </a>
+      <a routerLink="/favorites" routerLinkActive="text-primary font-medium" class="relative text-white group">
+        <span [class]="(isActive('/favorites')) ? 'px-3 py-1.5 rounded-lg bg-primary/30 backdrop-blur-sm inline-block transition-all duration-300 group-hover:bg-primary/40 font-bold' : 'px-3 py-1.5 rounded-lg hover:bg-gray-700/80 inline-block transition-all duration-300'">
+          <i class="pi pi-heart mr-2"></i> Favorites
+        </span>
+      </a>
+      <a routerLink="/profile" routerLinkActive="text-primary font-medium" class="relative text-white group">
+        <span [class]="(isActive('/profile')) ? 'px-3 py-1.5 rounded-lg bg-primary/30 backdrop-blur-sm inline-block transition-all duration-300 group-hover:bg-primary/40 font-bold' : 'px-3 py-1.5 rounded-lg hover:bg-gray-700/80 inline-block transition-all duration-300'">
+          <i class="pi pi-user mr-2"></i> Profile
+        </span>
+      </a>
+      <a routerLink="/settings" routerLinkActive="text-primary font-medium" class="relative text-white group">
+        <span [class]="(isActive('/settings')) ? 'px-3 py-1.5 rounded-lg bg-primary/30 backdrop-blur-sm inline-block transition-all duration-300 group-hover:bg-primary/40 font-bold' : 'px-3 py-1.5 rounded-lg hover:bg-gray-700/80 inline-block transition-all duration-300'">
+          <i class="pi pi-cog mr-2"></i> Settings
+        </span>
+      </a>
+      <a routerLink="/help" routerLinkActive="text-primary font-medium" class="relative text-white group">
+        <span [class]="(isActive('/help')) ? 'px-3 py-1.5 rounded-lg bg-primary/30 backdrop-blur-sm inline-block transition-all duration-300 group-hover:bg-primary/40 font-bold' : 'px-3 py-1.5 rounded-lg hover:bg-gray-700/80 inline-block transition-all duration-300'">
+          <i class="pi pi-question-circle mr-2"></i> Help
+        </span>
+      </a>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="hidden sm:flex items-center px-2">
+      <form class="search-bar compact-search-bar" (submit)="$event.preventDefault()">
+        <input type="text" class="search-input compact-search-input" placeholder="Search movies..." />
+        <button type="submit" class="search-icon bg-primary rounded-full p-0 ml-1 flex items-center justify-center" style="width:1.7rem;height:2.1rem;">
+          <i class="pi pi-search text-white text-base"></i>
+        </button>
+      </form>
+    </div>
+
+    <!-- Account Avatar with Dropdown -->
+    <div class="flex items-center ml-3 relative">
+      <button class="user-icon-wrapper rounded-full overflow-hidden border-2 border-primary focus:outline-none" style="width:2.2rem;height:2.2rem;" (click)="toggleUserMenu()">
+        <img src="https://ui-avatars.com/api/?name=User&background=3b82f6&color=fff" alt="User Avatar" class="w-full h-full object-cover" />
+      </button>
+      <div *ngIf="isUserMenuOpen" class="menu-dropdown absolute right-0 mt-3 w-40 bg-gray-800 rounded-lg shadow-lg py-2 z-50 border border-gray-700 animate-fade-in-down">
+        <a routerLink="/profile" class="glass-dropdown-item flex items-center gap-2 px-4 py-2 text-sm text-white hover:bg-gray-700">
+          <i class="pi pi-user dropdown-icon"></i> Profile
+        </a>
+        <div class="dropdown-divider border-t border-gray-700 my-1"></div>
+        <a routerLink="/logout" class="glass-dropdown-item flex items-center gap-2 px-4 py-2 text-sm text-white hover:bg-gray-700">
+          <i class="pi pi-sign-out dropdown-icon"></i> Logout
+        </a>
       </div>
     </div>
   </div>
 </nav>
+
+<!-- Mobile Menu Overlay -->
+<div class="fixed inset-0 bg-black/70 backdrop-blur-xl z-40 flex flex-col p-6 transform transition-all duration-300 ease-in-out md:hidden" 
+     [ngClass]="{'translate-x-0 opacity-100': isMobileMenuOpen, 'translate-x-full opacity-0 pointer-events-none': !isMobileMenuOpen}">
+  <div class="flex justify-between items-center mb-6">
+    <a routerLink="/" class="flex items-center justify-center logo-container h-14 w-14 p-1">
+      <img src="/Logo.png" alt="CineSage Logo" class="h-12 w-auto">
+    </a>
+    <button class="text-white text-xl p-2 rounded-full glass-element focus:outline-none hover:bg-primary/10 transition-all duration-200" (click)="toggleMobileMenu()">
+      <i class="pi pi-times"></i>
+    </button>
+  </div>
+  <div class="flex flex-col gap-3 mt-6">
+    <a routerLink="/home" routerLinkActive="text-primary border-l-2 border-primary pl-3 bg-primary/10" class="glass-element rounded-lg text-white/90 hover:text-primary transition-all duration-200 py-3 pl-4 flex items-center gap-3" (click)="toggleMobileMenu()">
+      <i class="pi pi-home text-sm"></i>
+      <span>Home</span>
+    </a>
+    <a routerLink="/search" routerLinkActive="text-primary border-l-2 border-primary pl-3 bg-primary/10" class="glass-element rounded-lg text-white/90 hover:text-primary transition-all duration-200 py-3 pl-4 flex items-center gap-3" (click)="toggleMobileMenu()">
+      <i class="pi pi-search text-sm"></i>
+      <span>Search</span>
+    </a>
+    <a routerLink="/favorites" routerLinkActive="text-primary border-l-2 border-primary pl-3 bg-primary/10" class="glass-element rounded-lg text-white/90 hover:text-primary transition-all duration-200 py-3 pl-4 flex items-center gap-3" (click)="toggleMobileMenu()">
+      <i class="pi pi-heart text-sm"></i>
+      <span>Favorites</span>
+    </a>
+    <a routerLink="/profile" routerLinkActive="text-primary border-l-2 border-primary pl-3 bg-primary/10" class="glass-element rounded-lg text-white/90 hover:text-primary transition-all duration-200 py-3 pl-4 flex items-center gap-3" (click)="toggleMobileMenu()">
+      <i class="pi pi-user text-sm"></i>
+      <span>Profile</span>
+    </a>
+    <a routerLink="/settings" routerLinkActive="text-primary border-l-2 border-primary pl-3 bg-primary/10" class="glass-element rounded-lg text-white/90 hover:text-primary transition-all duration-200 py-3 pl-4 flex items-center gap-3" (click)="toggleMobileMenu()">
+      <i class="pi pi-cog text-sm"></i>
+      <span>Settings</span>
+    </a>
+    <a routerLink="/help" routerLinkActive="text-primary border-l-2 border-primary pl-3 bg-primary/10" class="glass-element rounded-lg text-white/90 hover:text-primary transition-all duration-200 py-3 pl-4 flex items-center gap-3" (click)="toggleMobileMenu()">
+      <i class="pi pi-question-circle text-sm"></i>
+      <span>Help</span>
+    </a>
+  </div>
+</div>

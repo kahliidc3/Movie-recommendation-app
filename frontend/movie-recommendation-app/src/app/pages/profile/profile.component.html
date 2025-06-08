@@ -1,87 +1,88 @@
-<div class="profile-container">
+<div class="min-h-screen bg-gradient-to-br from-dark via-gray-900 to-dark-light py-24 px-4">
   <!-- Profile Header -->
-  <section class="profile-header">
-    <div class="profile-banner">
-      <div class="profile-info">
-        <div class="profile-avatar">
-          <img src="assets/images/avatar.jpg" alt="User Avatar">
-          <button class="edit-avatar">
-            <i class="pi pi-camera"></i>
-          </button>
-        </div>
-        <div class="profile-details">
-          <h1>John Doe</h1>
-          <p class="username">&#64;johndoe</p>
-          <p class="bio">Movie enthusiast | Sci-Fi lover | Always watching something new</p>
-        </div>
+  <section class="max-w-4xl mx-auto bg-dark-light bg-opacity-80 rounded-2xl shadow-2xl p-8 mb-12 flex flex-col md:flex-row items-center gap-10 backdrop-blur-lg border border-primary/10">
+    <div class="flex flex-col items-center md:items-start gap-4">
+      <div class="relative w-32 h-32 rounded-full overflow-hidden border-4 border-primary shadow-lg">
+        <img src="assets/images/avatar.jpg" alt="User Avatar" class="w-full h-full object-cover" />
+        <button class="absolute bottom-2 right-2 bg-primary text-dark p-2 rounded-full shadow-lg hover:bg-primary-light transition">
+          <i class="pi pi-camera"></i>
+        </button>
       </div>
-      <div class="profile-stats">
-        <div class="stat-item">
-          <span class="stat-value">{{ userStats.moviesWatched }}</span>
-          <span class="stat-label">Movies Watched</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-value">{{ userStats.reviewsWritten }}</span>
-          <span class="stat-label">Reviews</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-value">{{ userStats.listsCreated }}</span>
-          <span class="stat-label">Lists</span>
-        </div>
+      <div class="text-center md:text-left">
+        <h1 class="text-3xl font-extrabold text-white mb-1">John Doe</h1>
+        <p class="text-primary font-semibold">&#64;johndoe</p>
+        <p class="text-text-secondary mt-2">Movie enthusiast | Sci-Fi lover | Always watching something new</p>
+      </div>
+    </div>
+    <div class="flex-1 flex justify-center md:justify-end gap-8">
+      <div class="flex flex-col items-center">
+        <span class="text-3xl font-bold text-primary">{{ userStats.moviesWatched }}</span>
+        <span class="text-text-secondary">Movies Watched</span>
+      </div>
+      <div class="flex flex-col items-center">
+        <span class="text-3xl font-bold text-primary">{{ userStats.reviewsWritten }}</span>
+        <span class="text-text-secondary">Reviews</span>
+      </div>
+      <div class="flex flex-col items-center">
+        <span class="text-3xl font-bold text-primary">{{ userStats.listsCreated }}</span>
+        <span class="text-text-secondary">Lists</span>
       </div>
     </div>
   </section>
 
   <!-- Profile Content -->
-  <section class="profile-content">
+  <section class="max-w-4xl mx-auto bg-dark-light bg-opacity-80 rounded-2xl shadow-xl p-8 backdrop-blur-lg border border-primary/10">
     <!-- Navigation Tabs -->
-    <div class="profile-tabs">
+    <div class="flex gap-4 border-b border-primary/10 mb-8">
       <button 
-        [class.active]="activeTab === 'overview'"
+        class="px-6 py-3 text-lg font-bold text-white border-b-4 transition-all duration-200"
+        [ngClass]="activeTab === 'overview' ? 'border-primary text-primary' : 'border-transparent'"
         (click)="setActiveTab('overview')">
         Overview
       </button>
       <button 
-        [class.active]="activeTab === 'preferences'"
+        class="px-6 py-3 text-lg font-bold text-white border-b-4 transition-all duration-200"
+        [ngClass]="activeTab === 'preferences' ? 'border-primary text-primary' : 'border-transparent'"
         (click)="setActiveTab('preferences')">
         Preferences
       </button>
       <button 
-        [class.active]="activeTab === 'history'"
+        class="px-6 py-3 text-lg font-bold text-white border-b-4 transition-all duration-200"
+        [ngClass]="activeTab === 'history' ? 'border-primary text-primary' : 'border-transparent'"
         (click)="setActiveTab('history')">
         Watch History
       </button>
       <button 
-        [class.active]="activeTab === 'lists'"
+        class="px-6 py-3 text-lg font-bold text-white border-b-4 transition-all duration-200"
+        [ngClass]="activeTab === 'lists' ? 'border-primary text-primary' : 'border-transparent'"
         (click)="setActiveTab('lists')">
         My Lists
       </button>
     </div>
 
     <!-- Tab Content -->
-    <div class="tab-content">
+    <div>
       <!-- Overview Tab -->
-      <div *ngIf="activeTab === 'overview'" class="overview-tab">
-        <div class="section-grid">
+      <div *ngIf="activeTab === 'overview'" class="mb-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           <!-- Recent Activity -->
-          <div class="activity-section">
-            <h2>Recent Activity</h2>
-            <div class="activity-feed">
-              <div class="activity-item" *ngFor="let _ of [1,2,3]">
-                <i class="pi pi-star-fill"></i>
-                <div class="activity-content">
-                  <p>Rated <strong>Inception</strong> 5 stars</p>
-                  <span class="activity-time">2 hours ago</span>
+          <div class="bg-dark rounded-xl p-6 shadow-lg">
+            <h2 class="text-xl font-bold text-primary mb-4">Recent Activity</h2>
+            <div class="flex flex-col gap-4">
+              <div class="flex items-center gap-3" *ngFor="let _ of [1,2,3]">
+                <i class="pi pi-star-fill text-primary text-xl"></i>
+                <div>
+                  <p class="text-white">Rated <span class="font-bold">Inception</span> 5 stars</p>
+                  <span class="text-xs text-text-secondary">2 hours ago</span>
                 </div>
               </div>
             </div>
           </div>
-
           <!-- Favorite Genres -->
-          <div class="genres-section">
-            <h2>Favorite Genres</h2>
-            <div class="genre-chips">
-              <span class="genre-chip" *ngFor="let genre of preferredGenres">
+          <div class="bg-dark rounded-xl p-6 shadow-lg">
+            <h2 class="text-xl font-bold text-primary mb-4">Favorite Genres</h2>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-4 py-2 rounded-full font-semibold border border-primary/20 text-primary bg-dark hover:bg-primary hover:text-dark transition-all duration-200" *ngFor="let genre of preferredGenres">
                 {{ genre }}
               </span>
             </div>
@@ -90,49 +91,43 @@
       </div>
 
       <!-- Preferences Tab -->
-      <div *ngIf="activeTab === 'preferences'" class="preferences-tab">
-        <h2>Genre Preferences</h2>
-        <div class="genre-selection">
+      <div *ngIf="activeTab === 'preferences'" class="mb-12">
+        <h2 class="text-xl font-bold text-primary mb-4">Genre Preferences</h2>
+        <div class="flex flex-wrap gap-2 mb-8">
           <button 
             *ngFor="let genre of genres"
-            class="genre-chip"
-            [class.active]="preferredGenres.includes(genre)"
+            class="px-4 py-2 rounded-full font-semibold border border-primary/20 text-primary bg-dark hover:bg-primary hover:text-dark transition-all duration-200"
+            [class.bg-primary]="preferredGenres.includes(genre)"
+            [class.text-dark]="preferredGenres.includes(genre)"
             (click)="toggleGenre(genre)">
             {{ genre }}
           </button>
         </div>
-
-        <h2>Notification Settings</h2>
-        <div class="notification-settings">
-          <div class="setting-item">
-            <label>
-              <input type="checkbox" checked>
-              New recommendations
-            </label>
-          </div>
-          <div class="setting-item">
-            <label>
-              <input type="checkbox" checked>
-              Friend activity
-            </label>
-          </div>
+        <h2 class="text-xl font-bold text-primary mb-4">Notification Settings</h2>
+        <div class="flex flex-col gap-4">
+          <label class="flex items-center gap-3 text-white">
+            <input type="checkbox" checked class="accent-primary w-5 h-5 rounded">
+            New recommendations
+          </label>
+          <label class="flex items-center gap-3 text-white">
+            <input type="checkbox" checked class="accent-primary w-5 h-5 rounded">
+            Friend activity
+          </label>
         </div>
       </div>
 
       <!-- Watch History Tab -->
-      <div *ngIf="activeTab === 'history'" class="history-tab">
-        <div class="movies-grid">
-          <div class="movie-card" *ngFor="let movie of watchHistory">
-            <div class="movie-poster">
-              <div class="watch-date">Watched on Mar 15, 2024</div>
-              <div class="hover-info">
-                <h3>Movie Title</h3>
-                <div class="movie-meta">
-                  <span class="rating">
-                    <i class="pi pi-star-fill"></i>
-                    8.5
-                  </span>
+      <div *ngIf="activeTab === 'history'" class="mb-12">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div class="rounded-xl overflow-hidden bg-dark shadow-lg hover:scale-105 transition-all duration-200 group" *ngFor="let movie of watchHistory">
+            <div class="relative h-48 bg-cover bg-center" style="background-image: url('/assets/images/movie1.jpg');">
+              <div class="absolute inset-0 bg-gradient-to-t from-dark/80 to-transparent"></div>
+              <div class="absolute bottom-0 left-0 right-0 p-4 z-10">
+                <h3 class="text-lg font-bold text-white mb-2">Movie Title</h3>
+                <div class="flex gap-2 text-text-secondary mb-2">
+                  <span class="flex items-center gap-1"><i class="pi pi-star text-primary"></i> 8.5</span>
                 </div>
+                <span class="text-xs text-text-secondary">Watched on Mar 15, 2024</span>
               </div>
             </div>
           </div>
@@ -140,19 +135,20 @@
       </div>
 
       <!-- Lists Tab -->
-      <div *ngIf="activeTab === 'lists'" class="lists-tab">
+      <div *ngIf="activeTab === 'lists'" class="mb-12">
         <!-- Watchlist -->
-        <div class="list-section">
-          <h2>Watchlist</h2>
-          <div class="movies-grid">
-            <div class="movie-card" *ngFor="let movie of watchlist; let i = index">
-              <div class="movie-poster">
-                <button class="remove-btn" (click)="removeFromList('watchlist', i)">
-                  <i class="pi pi-times"></i>
-                </button>
-                <div class="hover-info">
-                  <h3>Movie Title</h3>
-                  <button class="btn btn-small">
+        <div class="mb-10">
+          <h2 class="text-xl font-bold text-primary mb-4">Watchlist</h2>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div class="rounded-xl overflow-hidden bg-dark shadow-lg hover:scale-105 transition-all duration-200 group relative" *ngFor="let movie of watchlist; let i = index">
+              <button class="absolute top-2 right-2 bg-red-500 text-white p-2 rounded-full shadow-lg hover:bg-red-600 transition z-10" (click)="removeFromList('watchlist', i)">
+                <i class="pi pi-times"></i>
+              </button>
+              <div class="relative h-48 bg-cover bg-center" style="background-image: url('/assets/images/movie2.jpg');">
+                <div class="absolute inset-0 bg-gradient-to-t from-dark/80 to-transparent"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-4 z-10">
+                  <h3 class="text-lg font-bold text-white mb-2">Movie Title</h3>
+                  <button class="bg-primary text-dark px-4 py-2 rounded-full font-bold hover:bg-primary-light transition flex items-center gap-2">
                     <i class="pi pi-play"></i>
                   </button>
                 </div>
@@ -160,19 +156,19 @@
             </div>
           </div>
         </div>
-
         <!-- Favorites -->
-        <div class="list-section">
-          <h2>Favorites</h2>
-          <div class="movies-grid">
-            <div class="movie-card" *ngFor="let movie of favorites; let i = index">
-              <div class="movie-poster">
-                <button class="remove-btn" (click)="removeFromList('favorites', i)">
-                  <i class="pi pi-times"></i>
-                </button>
-                <div class="hover-info">
-                  <h3>Movie Title</h3>
-                  <button class="btn btn-small">
+        <div>
+          <h2 class="text-xl font-bold text-primary mb-4">Favorites</h2>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div class="rounded-xl overflow-hidden bg-dark shadow-lg hover:scale-105 transition-all duration-200 group relative" *ngFor="let movie of favorites; let i = index">
+              <button class="absolute top-2 right-2 bg-red-500 text-white p-2 rounded-full shadow-lg hover:bg-red-600 transition z-10" (click)="removeFromList('favorites', i)">
+                <i class="pi pi-times"></i>
+              </button>
+              <div class="relative h-48 bg-cover bg-center" style="background-image: url('/assets/images/movie3.jpg');">
+                <div class="absolute inset-0 bg-gradient-to-t from-dark/80 to-transparent"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-4 z-10">
+                  <h3 class="text-lg font-bold text-white mb-2">Movie Title</h3>
+                  <button class="bg-primary text-dark px-4 py-2 rounded-full font-bold hover:bg-primary-light transition flex items-center gap-2">
                     <i class="pi pi-play"></i>
                   </button>
                 </div>

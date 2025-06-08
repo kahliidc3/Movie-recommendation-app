@@ -1,24 +1,49 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
+import { CheckboxModule } from 'primeng/checkbox';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [CommonModule, RouterLink, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    RouterModule,
+    ButtonModule,
+    InputTextModule,
+    PasswordModule,
+    CheckboxModule,
+    ToastModule
+  ],
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  styleUrls: ['./signup.component.css'],
+  providers: [MessageService]
 })
-export class SignupComponent {
+export class SignupComponent implements OnInit {
   signupForm: FormGroup;
   showPassword = false;
   showConfirmPassword = false;
   isLoading = false;
+  acceptTerms = false;
 
-  constructor(private fb: FormBuilder) {
+  // Password strength meter
+  passwordStrength: number = 0;
+  passwordStrengthClass: string = 'bg-red-500';
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private messageService: MessageService
+  ) {
     this.signupForm = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(3)]],
+      name: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [
         Validators.required, 
@@ -27,24 +52,41 @@ export class SignupComponent {
       ]],
       confirmPassword: ['', Validators.required],
       terms: [false, Validators.requiredTrue]
-    }, { validator: this.passwordMatchValidator });
+    }, {
+      validators: this.passwordMatchValidator
+    });
   }
 
+  ngOnInit(): void {}
+
   private passwordMatchValidator(g: FormGroup) {
-    return g.get('password')?.value === g.get('confirmPassword')?.value
-      ? null : { mismatch: true };
+    const password = g.get('password');
+    const confirmPassword = g.get('confirmPassword');
+    
+    if (password && confirmPassword && password.value !== confirmPassword.value) {
+      confirmPassword.setErrors({ passwordMismatch: true });
+    }
   }
 
   onSubmit(): void {
-    if (this.signupForm.valid) {
+    if (this.signupForm.valid && this.acceptTerms) {
       this.isLoading = true;
-      // In a real app, this would call an auth service
-      console.log('Signup attempt:', this.signupForm.value);
+      // TODO: Implement signup logic
       setTimeout(() => {
         this.isLoading = false;
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Account created successfully'
+        });
+        this.router.navigate(['/auth/login']);
       }, 1500);
     } else {
-      this.markFormGroupTouched(this.signupForm);
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Please fill in all required fields correctly'
+      });
     }
   }
 
@@ -81,7 +123,7 @@ export class SignupComponent {
       if (control.errors['pattern']) {
         return 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character';
       }
-      if (control.errors['mismatch']) {
+      if (control.errors['passwordMismatch']) {
         return 'Passwords do not match';
       }
     }
@@ -90,5 +132,27 @@ export class SignupComponent {
 
   signupWithProvider(provider: string): void {
     console.log(`Signup with ${provider}`);
+  }
+
+  goToLogin(): void {
+    this.router.navigate(['/auth/login']);
+  }
+
+  checkPasswordStrength(): void {
+    const password = this.signupForm.get('password')?.value || '';
+    let score = 0;
+    if (password.length >= 8) score += 1;
+    if (/[A-Z]/.test(password)) score += 1;
+    if (/[a-z]/.test(password)) score += 1;
+    if (/\d/.test(password)) score += 1;
+    if (/[@$!%*?&]/.test(password)) score += 1;
+    this.passwordStrength = (score / 5) * 100;
+    if (score <= 2) {
+      this.passwordStrengthClass = 'bg-red-500';
+    } else if (score === 3 || score === 4) {
+      this.passwordStrengthClass = 'bg-yellow-500';
+    } else if (score === 5) {
+      this.passwordStrengthClass = 'bg-green-500';
+    }
   }
 }
