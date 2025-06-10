@@ -8,6 +8,7 @@ import { PasswordModule } from 'primeng/password';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { CardModule } from 'primeng/card';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,8 @@ import { MessageService } from 'primeng/api';
     InputTextModule,
     PasswordModule,
     CheckboxModule,
-    ToastModule
+    ToastModule,
+    CardModule
   ],
   providers: [MessageService]
 })

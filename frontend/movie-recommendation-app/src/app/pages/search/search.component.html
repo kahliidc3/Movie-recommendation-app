@@ -1,109 +1,130 @@
-<div class="min-h-screen bg-gradient-to-br from-dark via-gray-900 to-dark-light py-24 px-4">
-  <!-- Search Header -->
-  <div class="flex flex-col md:flex-row items-center justify-between gap-6 mb-10">
-    <div class="flex-1 flex items-center bg-dark-light bg-opacity-80 rounded-full px-6 py-3 shadow-lg backdrop-blur-lg border border-primary/10 focus-within:ring-2 focus-within:ring-primary transition-all">
-      <i class="pi pi-search text-primary text-xl"></i>
-      <input 
-        type="text" 
-        [(ngModel)]="searchTerm"
-        (input)="onSearchInput(searchTerm)"
-        placeholder="Search movies, TV shows, actors..."
-        class="bg-transparent border-none outline-none text-white ml-3 w-full placeholder:text-text-secondary text-lg"
-      >
-    </div>
-    <button class="flex items-center gap-2 bg-primary text-dark px-6 py-3 rounded-full font-bold shadow-lg hover:bg-primary-light transition">
-      <i class="pi pi-filter"></i>
-      Filters
-    </button>
-  </div>
+<!-- Animated/Floating Background Elements -->
+<div class="fixed inset-0 -z-10 overflow-hidden">
+  <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-gradient-to-tr from-primary via-primary-light to-dark-light opacity-30 blur-3xl rounded-full animate-float-slow"></div>
+  <div class="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-gradient-to-br from-dark-light via-gray-900 to-dark opacity-20 blur-3xl rounded-full animate-float-reverse"></div>
+  <div class="absolute top-1/2 left-1/2 w-[350px] h-[350px] bg-gradient-to-tl from-primary via-primary-light to-dark opacity-10 blur-2xl rounded-full animate-float"></div>
+</div>
 
-  <!-- Filters Section -->
-  <div class="rounded-2xl bg-dark-light bg-opacity-80 p-6 mb-10 shadow-xl backdrop-blur-lg border border-primary/10 transition-all" [class.hidden]="!showFilters">
-    <div class="flex flex-wrap gap-8">
-      <!-- Genres -->
-      <div>
-        <h3 class="text-lg font-bold text-primary mb-2">Genres</h3>
-        <div class="flex flex-wrap gap-2">
-          <button 
-            *ngFor="let genre of genres"
-            class="px-4 py-2 rounded-full font-semibold border border-primary/20 text-primary bg-dark hover:bg-primary hover:text-dark transition-all duration-200"
-            [class.bg-primary]="selectedGenres.includes(genre)"
-            [class.text-dark]="selectedGenres.includes(genre)"
-            (click)="toggleGenre(genre)">
-            {{ genre }}
-          </button>
-        </div>
-      </div>
-      <!-- Years -->
-      <div>
-        <h3 class="text-lg font-bold text-primary mb-2">Release Year</h3>
-        <div class="flex flex-wrap gap-2">
-          <button 
-            *ngFor="let year of years.slice(0, 8)"
-            class="px-4 py-2 rounded-full font-semibold border border-primary/20 text-primary bg-dark hover:bg-primary hover:text-dark transition-all duration-200"
-            [class.bg-primary]="selectedYears.includes(year)"
-            [class.text-dark]="selectedYears.includes(year)"
-            (click)="toggleYear(year)">
-            {{ year }}
-          </button>
-          <button class="px-4 py-2 rounded-full font-semibold border border-primary/20 text-primary bg-dark hover:bg-primary hover:text-dark transition-all duration-200">
-            <i class="pi pi-ellipsis-h"></i>
-          </button>
-        </div>
-      </div>
-      <!-- Ratings -->
-      <div>
-        <h3 class="text-lg font-bold text-primary mb-2">Rating</h3>
-        <div class="flex flex-wrap gap-2">
-          <button 
-            *ngFor="let rating of ratings"
-            class="px-4 py-2 rounded-full font-semibold border border-primary/20 text-primary bg-dark hover:bg-primary hover:text-dark transition-all duration-200"
-            [class.bg-primary]="selectedRating === rating"
-            [class.text-dark]="selectedRating === rating"
-            (click)="setRating(rating)">
-            {{ rating }}
-          </button>
-        </div>
+<div class="min-h-screen bg-gradient-to-br from-dark via-gray-900 to-dark-light py-12 px-4 md:px-8 lg:px-12">
+  <div class="max-w-7xl mx-auto">
+    <!-- Search Header -->
+    <div class="glassmorphic-card rounded-2xl shadow-xl border border-[rgba(255,255,255,0.08)] p-6 md:p-8 lg:p-10 mb-8 flex flex-col md:flex-row items-center gap-6 animate-slide-down relative overflow-hidden">
+      <div class="flex-1 flex items-center gap-4 w-full">
+        <input type="text" [(ngModel)]="searchTerm" (input)="onSearchInput(searchTerm)" placeholder="Search movies..." class="w-full bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.1)] rounded-lg px-5 py-3 text-text-primary placeholder:text-text-secondary focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition text-base font-inter shadow-lg" />
+        <button (click)="toggleFilters()" class="bg-primary/20 text-primary-light px-5 py-3 rounded-full font-bold shadow-lg hover:bg-primary/30 transition flex items-center gap-2 text-base">
+          <i class="pi pi-sliders-h"></i> Filters
+        </button>
       </div>
     </div>
-  </div>
 
-  <!-- Results Section -->
-  <div class="rounded-2xl bg-dark-light bg-opacity-80 p-8 shadow-xl backdrop-blur-lg border border-primary/10">
-    <div class="flex flex-col md:flex-row items-center justify-between mb-8 gap-4">
-      <h2 class="text-2xl font-bold text-white">Search Results</h2>
-      <div class="flex items-center gap-4">
-        <span class="text-text-secondary">{{ searchResults.length }} results</span>
-        <select class="bg-dark text-white border border-primary/20 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary">
-          <option value="relevance">Relevance</option>
-          <option value="rating">Rating</option>
-          <option value="year">Release Year</option>
-        </select>
-      </div>
-    </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-      <div class="rounded-xl overflow-hidden bg-dark shadow-lg hover:scale-105 transition-all duration-200 group" *ngFor="let result of searchResults">
-        <div class="relative h-72 bg-cover bg-center" style="background-image: url('/assets/images/movie1.jpg');">
-          <div class="absolute inset-0 bg-gradient-to-t from-dark/80 to-transparent"></div>
-          <div class="absolute bottom-0 left-0 right-0 p-4 z-10">
-            <h3 class="text-lg font-bold text-white mb-2">Movie Title</h3>
-            <div class="flex gap-2 text-text-secondary mb-2">
-              <span class="flex items-center gap-1"><i class="pi pi-star text-primary"></i> 8.5</span>
-              <span>2024</span>
-            </div>
-            <button class="bg-primary text-dark px-4 py-2 rounded-full font-bold hover:bg-primary-light transition flex items-center gap-2">
-              <i class="pi pi-play"></i> Watch
+    <!-- Filters Section -->
+    <div [ngClass]="{'max-h-0 opacity-0 pointer-events-none': !showFilters, 'max-h-[1000px] opacity-100': showFilters}" class="glassmorphic-card rounded-2xl shadow-xl border border-[rgba(255,255,255,0.08)] p-6 md:p-8 lg:p-10 mb-10 overflow-hidden transition-all duration-500 ease-in-out animate-fade-in-card">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Genres -->
+        <div>
+          <h3 class="text-lg font-bold text-text-primary mb-3 font-poppins">Genres</h3>
+          <div class="flex flex-wrap gap-2">
+            <button *ngFor="let genre of genres" (click)="toggleGenre(genre)"
+              [ngClass]="{'bg-primary/40 text-text-primary font-bold': selectedGenres.includes(genre), 'bg-[rgba(255,255,255,0.05)] text-text-secondary': !selectedGenres.includes(genre)}"
+              class="px-3 py-1.5 rounded-full shadow hover:bg-primary/30 hover:text-text-primary transition font-inter text-sm border border-[rgba(255,255,255,0.08)]">
+              {{ genre }}
+            </button>
+          </div>
+        </div>
+        <!-- Years -->
+        <div>
+          <h3 class="text-lg font-bold text-text-primary mb-3 font-poppins">Release Year</h3>
+          <div class="flex flex-wrap gap-2">
+            <button *ngFor="let year of years.slice(0, 8)" (click)="toggleYear(year)"
+              [ngClass]="{'bg-primary/40 text-text-primary font-bold': selectedYears.includes(year), 'bg-[rgba(255,255,255,0.05)] text-text-secondary': !selectedYears.includes(year)}"
+              class="px-3 py-1.5 rounded-full shadow hover:bg-primary/30 hover:text-text-primary transition font-inter text-sm border border-[rgba(255,255,255,0.08)]">
+              {{ year }}
+            </button>
+          </div>
+        </div>
+        <!-- Ratings -->
+        <div>
+          <h3 class="text-lg font-bold text-text-primary mb-3 font-poppins">Rating</h3>
+          <div class="flex flex-wrap gap-2">
+            <button *ngFor="let rating of ratings" (click)="setRating(rating)"
+              [ngClass]="{'bg-primary/40 text-text-primary font-bold': selectedRating === rating, 'bg-[rgba(255,255,255,0.05)] text-text-secondary': selectedRating !== rating}"
+              class="px-3 py-1.5 rounded-full shadow hover:bg-primary/30 hover:text-text-primary transition font-inter text-sm border border-[rgba(255,255,255,0.08)]">
+              {{ rating }}
             </button>
           </div>
         </div>
       </div>
     </div>
-    <!-- Load More -->
-    <div class="flex justify-center mt-10">
-      <button class="bg-primary text-dark px-8 py-3 rounded-full font-bold shadow-lg hover:bg-primary-light transition text-lg flex items-center gap-2">
-        <i class="pi pi-angle-double-down"></i>
-        Load More Results
-      </button>
+
+    <!-- Results Section -->
+    <div *ngIf="searchResults && searchResults.length; else emptyState">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl md:text-3xl font-extrabold text-text-primary font-poppins tracking-wide">Search Results</h2>
+        <div class="flex items-center gap-3 text-text-secondary">
+          <span class="text-sm md:text-base">{{ searchResults.length }} results</span>
+          <p-dropdown [options]="sortOptions" [(ngModel)]="selectedSortOption" placeholder="Sort by" styleClass="p-dropdown-sm custom-dropdown bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.08)] text-text-primary" (onChange)="onSortChange()"></p-dropdown>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div *ngFor="let result of searchResults" class="glassmorphic-card rounded-xl shadow-lg hover:scale-[1.02] transition-all duration-300 group relative border border-[rgba(255,255,255,0.08)] flex items-center p-3 gap-4">
+          <div class="relative flex-shrink-0 w-24 h-28 md:w-28 md:h-32 rounded-md overflow-hidden bg-cover bg-center" [style.background-image]="'url(' + (result.image || '/assets/images/movie1.jpg') + ')'"></div>
+          <div class="flex-1 flex flex-col justify-center py-1">
+            <h4 class="text-base md:text-lg font-semibold text-text-primary mb-0.5 truncate font-poppins">{{ result.title || 'Movie Title' }}</h4>
+            <span class="text-xs text-text-secondary mb-2">Genre: {{ result.genres || 'Drama' }}</span>
+            <div class="flex items-center justify-between gap-4 text-xs">
+              <div class="flex flex-col text-center">
+                <span class="font-bold text-text-primary">{{ (result.fandrummers || 100000).toLocaleString() }}</span>
+                <span class="text-text-secondary text-xs">Fandrummers</span>
+              </div>
+              <div class="flex flex-col text-center">
+                <span class="font-bold text-text-primary">{{ (result.fandrumming || 50000).toLocaleString() }}</span>
+                <span class="text-text-secondary text-xs">Fandrumming</span>
+              </div>
+              <div class="bg-accent-green/20 text-accent-green px-3 py-1 rounded-full font-bold text-xs flex items-center gap-1">
+                <span class="text-accent-green">{{ (result.moodMatch || 90) }}%</span>
+                <i class="pi pi-verified text-accent-green text-xs"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-center mt-8">
+        <button class="bg-primary/20 text-primary-light px-6 py-2.5 rounded-full font-bold shadow-lg hover:bg-primary/30 transition text-base flex items-center gap-2">
+          <i class="pi pi-angle-double-down"></i> Load More Results
+        </button>
+      </div>
     </div>
+    <ng-template #emptyState>
+      <div class="flex flex-col items-center justify-center py-24 animate-fade-in-card">
+        <i class="pi pi-search text-primary text-6xl mb-4"></i>
+        <h2 class="text-2xl md:text-3xl font-bold text-text-primary mb-2">No results found</h2>
+        <p class="text-text-secondary text-base mb-6">Try searching for a different movie or adjusting your filters.</p>
+      </div>
+    </ng-template>
   </div>
 </div>
+
+<!-- Animations & Effects (copied from favorites/landing for consistency) -->
+<style>
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-30px) scale(1.05); }
+}
+@keyframes float-reverse {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(30px) scale(1.08); }
+}
+@keyframes fade-in-card {
+  from { opacity: 0; transform: translateY(40px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-60px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.animate-float-slow { animation: float 8s ease-in-out infinite; }
+.animate-float-reverse { animation: float-reverse 10s ease-in-out infinite; }
+.animate-float { animation: float 12s ease-in-out infinite; }
+.animate-fade-in-card { animation: fade-in-card 1.1s cubic-bezier(.4,0,.2,1) both; }
+.animate-slide-down { animation: slide-down 1.1s cubic-bezier(.4,0,.2,1) both; }
+</style> 

@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
+import { DropdownModule } from 'primeng/dropdown';
 
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, DropdownModule],
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
@@ -24,8 +25,17 @@ export class SearchComponent implements OnInit {
 
   searchResults = Array(12).fill(null); // Placeholder for demo
 
+  sortOptions: any[] = [
+    { label: 'Relevance', value: 'relevance' },
+    { label: 'Rating', value: 'rating' },
+    { label: 'Year', value: 'year' },
+    { label: 'Title (A-Z)', value: 'title-asc' }
+  ];
+  selectedSortOption: any = { label: 'Relevance', value: 'relevance' };
+
   ngOnInit(): void {
     this.setupSearchSubscription();
+    this.performSearch(this.searchTerm);
   }
 
   private setupSearchSubscription(): void {
@@ -44,6 +54,18 @@ export class SearchComponent implements OnInit {
   private performSearch(term: string): void {
     // In a real app, this would call a service
     console.log('Searching for:', term);
+    // Placeholder for search results based on term
+    this.searchResults = Array(12).fill(null).map((_, i) => ({ 
+      title: `Movie ${i + 1} for ${term}`,
+      rating: (Math.random() * 2 + 7).toFixed(1),
+      year: (2000 + Math.floor(Math.random() * 24)).toString(),
+      genres: ['Action', 'Sci-Fi'][Math.floor(Math.random() * 2)],
+      image: `/assets/images/movie${(i % 3) + 1}.jpg`,
+      fandrummers: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
+      fandrumming: Math.floor(Math.random() * (800000 - 50000 + 1)) + 50000,
+      moodMatch: Math.floor(Math.random() * (99 - 80 + 1)) + 80
+    }));
+    this.applySorting();
   }
 
   toggleGenre(genre: string): void {
@@ -78,6 +100,43 @@ export class SearchComponent implements OnInit {
       years: this.selectedYears,
       rating: this.selectedRating
     });
+    // Placeholder for filtered results
+    this.searchResults = Array(12).fill(null).map((_, i) => ({ 
+      title: `Filtered Movie ${i + 1}`,
+      rating: (Math.random() * 2 + 7).toFixed(1),
+      year: (2000 + Math.floor(Math.random() * 24)).toString(),
+      genres: ['Drama', 'Comedy'][Math.floor(Math.random() * 2)],
+      image: `/assets/images/movie${(i % 3) + 1}.jpg`,
+      fandrummers: Math.floor(Math.random() * (900000 - 100000 + 1)) + 100000,
+      fandrumming: Math.floor(Math.random() * (800000 - 50000 + 1)) + 50000,
+      moodMatch: Math.floor(Math.random() * (99 - 80 + 1)) + 80
+    }));
+    this.applySorting();
+  }
+
+  onSortChange(): void {
+    this.applySorting();
+  }
+
+  private applySorting(): void {
+    if (!this.searchResults || this.searchResults.length === 0) {
+      return;
+    }
+
+    switch (this.selectedSortOption.value) {
+      case 'relevance':
+        // For demo, relevance is just the initial order from performSearch/updateResults
+        break;
+      case 'rating':
+        this.searchResults.sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating));
+        break;
+      case 'year':
+        this.searchResults.sort((a, b) => parseInt(b.year) - parseInt(a.year));
+        break;
+      case 'title-asc':
+        this.searchResults.sort((a, b) => a.title.localeCompare(b.title));
+        break;
+    }
   }
 
   toggleFilters(): void {

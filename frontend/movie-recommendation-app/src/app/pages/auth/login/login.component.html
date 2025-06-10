@@ -1,144 +1,95 @@
-<!-- Brand/Logo at the top -->
-<div class="flex justify-center mb-6 animate__animated animate__fadeInDown">
-  <a routerLink="/" class="flex items-center gap-2">
-    <img src="/Logo.png" alt="CineSage Logo" class="h-12 w-auto drop-shadow-lg">
-    <span class="text-2xl font-extrabold text-primary font-poppins tracking-wide">CineSage</span>
-  </a>
+<!-- Animated/Floating Background Elements -->
+<div class="fixed inset-0 -z-10 overflow-hidden">
+  <div class="absolute top-[-10%] left-[-10%] w-[400px] h-[400px] bg-gradient-to-tr from-cyan-400 via-blue-600 to-purple-700 opacity-30 blur-3xl rounded-full animate-float-slow"></div>
+  <div class="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-gradient-to-br from-fuchsia-500 via-indigo-500 to-sky-400 opacity-20 blur-3xl rounded-full animate-float-reverse"></div>
+  <div class="absolute top-1/2 left-1/2 w-[300px] h-[300px] bg-gradient-to-tl from-blue-400 via-cyan-500 to-purple-500 opacity-10 blur-2xl rounded-full animate-float"></div>
 </div>
 
-<!-- Background Elements -->
-<div class="fixed inset-0 w-full h-full overflow-hidden pointer-events-none">
-  <div class="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-gradient-to-tr from-primary to-primary-light opacity-[.005] blur-3xl animate-pulse-slow"></div>
-  <div class="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-gradient-to-tr from-primary to-primary-light opacity-[.005] blur-3xl animate-pulse-slow"></div>
-</div>
-
-<div class="min-h-screen w-full flex items-center justify-center p-4 relative z-10">
-  <div class="w-full max-w-md bg-gray-800/30 p-8 md:p-10 rounded-3xl backdrop-blur-3xl shadow-2xl transition-all duration-700 hover:scale-[1.01] border border-white/10">
-    <!-- Header -->
-    <div class="text-center mb-8 animate__animated animate__fadeInDown">
-      <h1 class="text-4xl md:text-5xl font-extrabold font-poppins text-white mb-3 drop-shadow-lg">Welcome Back</h1>
-      <p class="text-secondary-color font-inter opacity-55">Sign in to continue your movie journey</p>
+<div class="min-h-screen flex items-center justify-center p-4">
+  <div class="w-full max-w-md">
+    <!-- Logo -->
+    <div class="flex justify-center mb-8 animate-fade-in">
+      <a routerLink="/" class="flex items-center gap-2">
+        <img src="/Logo.png" alt="CineSage Logo" class="h-12 w-auto drop-shadow-xl">
+        <span class="text-3xl font-extrabold text-white font-poppins tracking-wide">CineSage</span>
+      </a>
     </div>
-
-    <!-- Form -->
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-6 animate__animated animate__fadeInUp">
-      <!-- Email Field -->
-      <div class="space-y-2">
-        <label for="email" class="block text-sm font-medium text-secondary-color opacity-75">Email</label>
-        <span class="relative w-full flex items-center">
-          <i class="pi pi-envelope absolute left-3 text-secondary-color opacity-50"></i>
-          <input 
-            pInputText 
-            type="email" 
-            id="email"
-            formControlName="email"
-            placeholder="Enter your email"
-            class="w-full pl-10 pr-3 py-3 bg-dark-light/30 border-none text-white placeholder:text-secondary-color/50 focus:ring-2 focus:ring-primary/50 focus:shadow-glow rounded-lg transition-all duration-200"
-            [ngClass]="{'p-invalid': loginForm.get('email')?.invalid && loginForm.get('email')?.touched}"
-            aria-describedby="email-error"
-          >
-        </span>
-        <small id="email-error" class="text-red-400 block mt-1" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
-          Email is required or invalid.
-        </small>
-      </div>
-
-      <!-- Password Field -->
-      <div class="space-y-2">
-        <label for="password" class="block text-sm font-medium text-secondary-color opacity-75">Password</label>
-        <span class="relative w-full flex items-center">
-          <i class="pi pi-lock absolute left-3 text-secondary-color opacity-50"></i>
-          <p-password 
-            id="password"
-            formControlName="password"
-            [toggleMask]="true"
-            [feedback]="false"
-            placeholder="Enter your password"
-            styleClass="w-full"
-            inputStyleClass="w-full pl-10 pr-3 py-3 bg-dark-light/30 border-none text-white placeholder:text-secondary-color/50 focus:ring-2 focus:ring-primary/50 focus:shadow-glow rounded-lg transition-all duration-200"
-            [ngClass]="{'p-invalid': loginForm.get('password')?.invalid && loginForm.get('password')?.touched}"
-            aria-describedby="password-error"
-          ></p-password>
-        </span>
-        <small id="password-error" class="text-red-400 block mt-1" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
-          Password is required.
-        </small>
-      </div>
-
-      <!-- Remember Me & Forgot Password -->
-      <div class="flex items-center justify-between">
-        <div class="flex items-center">
-          <p-checkbox 
-            [binary]="true" 
-            formControlName="rememberMe"
-            styleClass="w-5 h-5 mr-2"
-            aria-label="Remember me"
-          ></p-checkbox>
-          <label class="ml-2 text-sm text-secondary-color opacity-75">Remember me</label>
-        </div>
-        <a routerLink="/auth/forgot-password" class="text-sm text-primary hover:text-primary-light transition-colors duration-300">
-          Forgot Password?
-        </a>
-      </div>
-
-      <!-- Submit Button -->
-      <button 
-        type="submit" 
-        [disabled]="isLoading || loginForm.invalid"
-        class="w-full p-3 text-lg font-bold bg-primary hover:bg-primary-light transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-xl rounded-lg flex items-center justify-center gap-2"
-      >
-        <i class="pi pi-sign-in"></i>
-        <span>{{ isLoading ? 'Signing in...' : 'Sign In' }}</span>
-      </button>
-    </form>
-
-    <!-- Social Login -->
-    <div class="mt-8 animate__animated animate__fadeInUp animate__delay-1s">
-      <div class="relative flex items-center justify-center mb-6">
-        <div class="absolute inset-0 flex items-center">
-          <div class="w-full border-t border-secondary-color/20"></div>
-        </div>
+    <!-- Glassmorphism Card -->
+    <div class="bg-white/10 backdrop-blur-2xl border border-white/20 shadow-2xl rounded-2xl px-8 py-10 animate-slide-up relative overflow-hidden">
+      <h1 class="text-3xl font-extrabold text-white mb-2 text-center tracking-wide">Welcome Back</h1>
+      <p class="text-base text-blue-100 text-center mb-8">Sign in to continue your movie journey</p>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-6">
+        <!-- Email -->
         <div class="relative">
-          <span class="px-4 text-sm text-secondary-color opacity-50 bg-dark">or continue with</span>
+          <input id="email" type="email" formControlName="email" placeholder=" " class="peer w-full bg-white/10 border border-white/20 rounded-lg px-4 pt-6 pb-2 text-white placeholder-transparent focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 transition" />
+          <label for="email" class="absolute left-4 top-2 text-blue-200 text-sm transition-all peer-placeholder-shown:top-5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm pointer-events-none">Email</label>
+          <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-pink-400 text-xs mt-1">Please enter a valid email address</div>
         </div>
-      </div>
-      
-      <div class="grid grid-cols-3 gap-4">
-        <button 
-          type="button" 
-          class="p-0 rounded-full bg-dark-light/30 hover:bg-dark-light/50 transition-all duration-300 flex items-center justify-center h-12 w-12"
-          (click)="loginWithProvider('google')"
-          aria-label="Login with Google"
-        >
-          <i class="pi pi-google text-xl"></i>
+        <!-- Password -->
+        <div class="relative">
+          <input id="password" type="password" formControlName="password" placeholder=" " class="peer w-full bg-white/10 border border-white/20 rounded-lg px-4 pt-6 pb-2 text-white placeholder-transparent focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 transition" />
+          <label for="password" class="absolute left-4 top-2 text-blue-200 text-sm transition-all peer-placeholder-shown:top-5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm pointer-events-none">Password</label>
+          <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-pink-400 text-xs mt-1">Password is required</div>
+        </div>
+        <!-- Remember Me & Forgot -->
+        <div class="flex items-center justify-between text-blue-200 text-sm">
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" formControlName="rememberMe" class="accent-cyan-400 rounded" />
+            Remember me
+          </label>
+          <a routerLink="/auth/forgot-password" class="hover:underline hover:text-cyan-300 transition">Forgot password?</a>
+        </div>
+        <!-- Sign In Button -->
+        <button type="submit" [disabled]="loginForm.invalid" class="w-full py-3 rounded-lg bg-gradient-to-r from-cyan-400 to-blue-600 text-white font-bold text-lg shadow-lg hover:from-cyan-300 hover:to-blue-500 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition disabled:opacity-60 disabled:cursor-not-allowed">
+          Sign In
         </button>
-        <button 
-          type="button" 
-          class="p-0 rounded-full bg-dark-light/30 hover:bg-dark-light/50 transition-all duration-300 flex items-center justify-center h-12 w-12"
-          (click)="loginWithProvider('facebook')"
-          aria-label="Login with Facebook"
-        >
-          <i class="pi pi-facebook text-xl"></i>
-        </button>
-        <button 
-          type="button" 
-          class="p-0 rounded-full bg-dark-light/30 hover:bg-dark-light/50 transition-all duration-300 flex items-center justify-center h-12 w-12"
-          (click)="loginWithProvider('apple')"
-          aria-label="Login with Apple"
-        >
-          <i class="pi pi-apple text-xl"></i>
-        </button>
-      </div>
-    </div>
-
-    <!-- Sign Up Link -->
-    <div class="mt-8 text-center animate__animated animate__fadeInUp animate__delay-1-5s">
-      <p class="text-secondary-color opacity-75">
-        Don't have an account? 
-        <a routerLink="/auth/signup" class="text-primary hover:text-primary-light transition-colors duration-300 font-medium">
-          Sign up
-        </a>
-      </p>
+        <!-- Social Login -->
+        <div class="flex items-center my-4">
+          <div class="flex-grow border-t border-white/20"></div>
+          <span class="mx-4 text-blue-200 text-xs">or continue with</span>
+          <div class="flex-grow border-t border-white/20"></div>
+        </div>
+        <div class="flex justify-center gap-4">
+          <button type="button" (click)="loginWithProvider('google')" class="w-12 h-12 rounded-full border border-white/20 bg-white/10 text-white flex items-center justify-center hover:shadow-cyan-400/40 hover:shadow-lg transition hover:bg-cyan-400/20">
+            <i class="pi pi-google text-xl"></i>
+          </button>
+          <button type="button" (click)="loginWithProvider('facebook')" class="w-12 h-12 rounded-full border border-white/20 bg-white/10 text-white flex items-center justify-center hover:shadow-blue-400/40 hover:shadow-lg transition hover:bg-blue-400/20">
+            <i class="pi pi-facebook text-xl"></i>
+          </button>
+          <button type="button" (click)="loginWithProvider('apple')" class="w-12 h-12 rounded-full border border-white/20 bg-white/10 text-white flex items-center justify-center hover:shadow-fuchsia-400/40 hover:shadow-lg transition hover:bg-fuchsia-400/20">
+            <i class="pi pi-apple text-xl"></i>
+          </button>
+        </div>
+        <div class="text-center text-blue-200 mt-6">
+          Don't have an account?
+          <a routerLink="/auth/signup" class="text-cyan-400 hover:underline hover:text-cyan-300 font-semibold transition">Sign up</a>
+        </div>
+      </form>
     </div>
   </div>
 </div>
+
+<!-- Animations -->
+<style>
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-30px) scale(1.05); }
+}
+@keyframes float-reverse {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(30px) scale(1.08); }
+}
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(60px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.animate-float-slow { animation: float 8s ease-in-out infinite; }
+.animate-float-reverse { animation: float-reverse 10s ease-in-out infinite; }
+.animate-float { animation: float 12s ease-in-out infinite; }
+.animate-fade-in { animation: fade-in 1.2s cubic-bezier(.4,0,.2,1) both; }
+.animate-slide-up { animation: slide-up 1.1s cubic-bezier(.4,0,.2,1) both; }
+</style>
